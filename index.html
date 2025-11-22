@@ -22,11 +22,49 @@
         #app {
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        .lang-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.3);
+            border: 2px solid transparent;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.05);
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
         }
 
         .header {
             text-align: center;
             margin-bottom: 30px;
+            margin-top: 60px;
         }
 
         .header h1 {
@@ -217,6 +255,10 @@
         }
 
         @media (max-width: 768px) {
+            .header {
+                margin-top: 70px;
+            }
+
             .header h1 {
                 font-size: 2rem;
             }
@@ -240,9 +282,23 @@
 </head>
 <body>
     <div id="app">
+        <!-- Language Toggle -->
+        <div class="lang-toggle">
+            <button
+                @click="switchLanguage('en')"
+                :class="{ 'lang-btn': true, 'active': currentLang === 'en' }">
+                EN
+            </button>
+            <button
+                @click="switchLanguage('es')"
+                :class="{ 'lang-btn': true, 'active': currentLang === 'es' }">
+                ES
+            </button>
+        </div>
+
         <div class="header">
-            <h1>🌟 First Words 🌟</h1>
-            <p>Learn and have fun!</p>
+            <h1>{{ t.title }}</h1>
+            <p>{{ t.subtitle }}</p>
         </div>
 
         <!-- Category Selection -->
@@ -252,20 +308,20 @@
                 :key="category.id"
                 @click="selectCategory(category)"
                 class="category-btn">
-                {{ category.emoji }} {{ category.name }}
+                {{ category.emoji }} {{ category.name[currentLang] }}
             </button>
         </div>
 
         <!-- Image Viewer -->
         <div v-else>
-            <button @click="goBack" class="back-btn">⬅️ Back to Categories</button>
+            <button @click="goBack" class="back-btn">⬅️ {{ t.backButton }}</button>
 
             <div class="viewer-container">
                 <div class="image-container">
-                    <img :src="currentImage.src" :alt="currentImage.name" class="main-image">
+                    <img :src="currentImage.src" :alt="currentImage.name[currentLang]" class="main-image">
                 </div>
 
-                <div class="image-name">{{ currentImage.name }}</div>
+                <div class="image-name">{{ currentImage.name[currentLang] }}</div>
 
                 <div class="navigation">
                     <button @click="previousImage" class="nav-btn">◀️</button>
@@ -277,15 +333,14 @@
 
         <!-- Credits Section -->
         <div class="credits">
-            <h2>📸 Image Credits</h2>
-            <p><strong>Current Status:</strong> This app currently uses colorful SVG placeholder images for demonstration purposes.</p>
-            <p>To use real photos, please replace the placeholder SVG files with actual images from free-to-use platforms:</p>
+            <h2>📸 {{ t.creditsTitle }}</h2>
+            <p><strong>{{ t.creditsStatus }}</strong> {{ t.creditsText1 }}</p>
+            <p>{{ t.creditsText2 }}</p>
             <ul style="text-align: left; max-width: 600px; margin: 10px auto;">
                 <li><a href="https://unsplash.com" target="_blank">Unsplash</a> - CC0 licensed images (free to use)</li>
                 <li><a href="https://pexels.com" target="_blank">Pexels</a> - Free to use images</li>
             </ul>
-            <p>See the <strong>README.md</strong> file for detailed instructions on sourcing and adding images.</p>
-            <p>Update the <strong>CREDITS.md</strong> file with photographer attributions when you add real images.</p>
+            <p>{{ t.creditsText3 }}</p>
         </div>
     </div>
 
@@ -295,64 +350,90 @@
         createApp({
             data() {
                 return {
+                    currentLang: localStorage.getItem('firstwords-lang') || 'en',
                     selectedCategory: null,
                     currentIndex: 0,
+                    translations: {
+                        en: {
+                            title: '🌟 First Words 🌟',
+                            subtitle: 'Learn and have fun!',
+                            backButton: 'Back to Categories',
+                            creditsTitle: 'Image Credits',
+                            creditsStatus: 'Current Status:',
+                            creditsText1: 'This app currently uses colorful SVG placeholder images for demonstration purposes.',
+                            creditsText2: 'To use real photos, please replace the placeholder SVG files with actual images from free-to-use platforms:',
+                            creditsText3: 'See the README.md file for detailed instructions on sourcing and adding images.'
+                        },
+                        es: {
+                            title: '🌟 Primeras Palabras 🌟',
+                            subtitle: '¡Aprende y diviértete!',
+                            backButton: 'Volver a Categorías',
+                            creditsTitle: 'Créditos de Imágenes',
+                            creditsStatus: 'Estado Actual:',
+                            creditsText1: 'Esta aplicación usa imágenes SVG de colores como placeholders para demostración.',
+                            creditsText2: 'Para usar fotos reales, reemplaza los archivos SVG con imágenes de plataformas gratuitas:',
+                            creditsText3: 'Consulta el archivo README.md para instrucciones detalladas sobre cómo obtener y agregar imágenes.'
+                        }
+                    },
                     categories: [
                         {
                             id: 'farm-animals',
-                            name: 'Farm Animals',
+                            name: { en: 'Farm Animals', es: 'Animales de Granja' },
                             emoji: '🐄',
                             images: [
-                                { name: 'Cow', src: 'images/farm-animals/cow.svg', credit: 'Placeholder' },
-                                { name: 'Pig', src: 'images/farm-animals/pig.svg', credit: 'Placeholder' },
-                                { name: 'Sheep', src: 'images/farm-animals/sheep.svg', credit: 'Placeholder' },
-                                { name: 'Chicken', src: 'images/farm-animals/chicken.svg', credit: 'Placeholder' },
-                                { name: 'Horse', src: 'images/farm-animals/horse.svg', credit: 'Placeholder' },
-                                { name: 'Duck', src: 'images/farm-animals/duck.svg', credit: 'Placeholder' },
+                                { name: { en: 'Cow', es: 'Vaca' }, src: 'images/farm-animals/cow.svg', credit: 'Placeholder' },
+                                { name: { en: 'Pig', es: 'Cerdo' }, src: 'images/farm-animals/pig.svg', credit: 'Placeholder' },
+                                { name: { en: 'Sheep', es: 'Oveja' }, src: 'images/farm-animals/sheep.svg', credit: 'Placeholder' },
+                                { name: { en: 'Chicken', es: 'Gallina' }, src: 'images/farm-animals/chicken.svg', credit: 'Placeholder' },
+                                { name: { en: 'Horse', es: 'Caballo' }, src: 'images/farm-animals/horse.svg', credit: 'Placeholder' },
+                                { name: { en: 'Duck', es: 'Pato' }, src: 'images/farm-animals/duck.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
                             id: 'household',
-                            name: 'House Items',
+                            name: { en: 'House Items', es: 'Cosas de Casa' },
                             emoji: '🪑',
                             images: [
-                                { name: 'Chair', src: 'images/household/chair.svg', credit: 'Placeholder' },
-                                { name: 'Table', src: 'images/household/table.svg', credit: 'Placeholder' },
-                                { name: 'Spoon', src: 'images/household/spoon.svg', credit: 'Placeholder' },
-                                { name: 'Cup', src: 'images/household/cup.svg', credit: 'Placeholder' },
-                                { name: 'Bed', src: 'images/household/bed.svg', credit: 'Placeholder' },
-                                { name: 'Door', src: 'images/household/door.svg', credit: 'Placeholder' },
+                                { name: { en: 'Chair', es: 'Silla' }, src: 'images/household/chair.svg', credit: 'Placeholder' },
+                                { name: { en: 'Table', es: 'Mesa' }, src: 'images/household/table.svg', credit: 'Placeholder' },
+                                { name: { en: 'Spoon', es: 'Cuchara' }, src: 'images/household/spoon.svg', credit: 'Placeholder' },
+                                { name: { en: 'Cup', es: 'Taza' }, src: 'images/household/cup.svg', credit: 'Placeholder' },
+                                { name: { en: 'Bed', es: 'Cama' }, src: 'images/household/bed.svg', credit: 'Placeholder' },
+                                { name: { en: 'Door', es: 'Puerta' }, src: 'images/household/door.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
                             id: 'clothing',
-                            name: 'Clothes',
+                            name: { en: 'Clothes', es: 'Ropa' },
                             emoji: '👕',
                             images: [
-                                { name: 'T-Shirt', src: 'images/clothing/tshirt.svg', credit: 'Placeholder' },
-                                { name: 'Pants', src: 'images/clothing/pants.svg', credit: 'Placeholder' },
-                                { name: 'Shoes', src: 'images/clothing/shoes.svg', credit: 'Placeholder' },
-                                { name: 'Hat', src: 'images/clothing/hat.svg', credit: 'Placeholder' },
-                                { name: 'Socks', src: 'images/clothing/socks.svg', credit: 'Placeholder' },
+                                { name: { en: 'T-Shirt', es: 'Camiseta' }, src: 'images/clothing/tshirt.svg', credit: 'Placeholder' },
+                                { name: { en: 'Pants', es: 'Pantalón' }, src: 'images/clothing/pants.svg', credit: 'Placeholder' },
+                                { name: { en: 'Shoes', es: 'Zapatos' }, src: 'images/clothing/shoes.svg', credit: 'Placeholder' },
+                                { name: { en: 'Hat', es: 'Sombrero' }, src: 'images/clothing/hat.svg', credit: 'Placeholder' },
+                                { name: { en: 'Socks', es: 'Calcetines' }, src: 'images/clothing/socks.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
                             id: 'colors',
-                            name: 'Colors',
+                            name: { en: 'Colors', es: 'Colores' },
                             emoji: '🌈',
                             images: [
-                                { name: 'Red', src: 'images/colors/red.svg', credit: 'Placeholder' },
-                                { name: 'Blue', src: 'images/colors/blue.svg', credit: 'Placeholder' },
-                                { name: 'Yellow', src: 'images/colors/yellow.svg', credit: 'Placeholder' },
-                                { name: 'Green', src: 'images/colors/green.svg', credit: 'Placeholder' },
-                                { name: 'Orange', src: 'images/colors/orange.svg', credit: 'Placeholder' },
-                                { name: 'Purple', src: 'images/colors/purple.svg', credit: 'Placeholder' },
+                                { name: { en: 'Red', es: 'Rojo' }, src: 'images/colors/red.svg', credit: 'Placeholder' },
+                                { name: { en: 'Blue', es: 'Azul' }, src: 'images/colors/blue.svg', credit: 'Placeholder' },
+                                { name: { en: 'Yellow', es: 'Amarillo' }, src: 'images/colors/yellow.svg', credit: 'Placeholder' },
+                                { name: { en: 'Green', es: 'Verde' }, src: 'images/colors/green.svg', credit: 'Placeholder' },
+                                { name: { en: 'Orange', es: 'Naranja' }, src: 'images/colors/orange.svg', credit: 'Placeholder' },
+                                { name: { en: 'Purple', es: 'Morado' }, src: 'images/colors/purple.svg', credit: 'Placeholder' },
                             ]
                         }
                     ]
                 };
             },
             computed: {
+                t() {
+                    return this.translations[this.currentLang];
+                },
                 currentCategoryImages() {
                     return this.selectedCategory ? this.selectedCategory.images : [];
                 },
@@ -361,6 +442,10 @@
                 }
             },
             methods: {
+                switchLanguage(lang) {
+                    this.currentLang = lang;
+                    localStorage.setItem('firstwords-lang', lang);
+                },
                 selectCategory(category) {
                     this.selectedCategory = category;
                     this.currentIndex = 0;
