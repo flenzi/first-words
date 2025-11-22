@@ -1,20 +1,10 @@
 <svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="800" fill="#FFF9C4"/>
-  <!-- Carrot body -->
-  <path d="M 400 250 L 500 600 Q 400 650 300 600 Z" fill="#FF6F00" stroke="#E65100" stroke-width="5"/>
-  <!-- Texture lines -->
-  <g stroke="#E65100" stroke-width="2">
-    <line x1="350" y1="350" x2="320" y2="400"/>
-    <line x1="450" y1="350" x2="480" y2="400"/>
-    <line x1="370" y1="450" x2="340" y2="500"/>
-    <line x1="430" y1="450" x2="460" y2="500"/>
-  </g>
-  <!-- Green leaves -->
-  <g fill="#4CAF50" stroke="#2E7D32" stroke-width="3">
-    <ellipse cx="380" cy="220" rx="15" ry="60" transform="rotate(-20 380 220)"/>
-    <ellipse cx="400" cy="200" rx="15" ry="70"/>
-    <ellipse cx="420" cy="220" rx="15" ry="60" transform="rotate(20 420 220)"/>
-    <ellipse cx="370" cy="240" rx="12" ry="50" transform="rotate(-35 370 240)"/>
-    <ellipse cx="430" cy="240" rx="12" ry="50" transform="rotate(35 430 240)"/>
-  </g>
+  <defs>
+    <linearGradient id="grad_15220" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF8C00;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#grad_11744)"/>
+  <text x="400" y="480" font-family="Arial, sans-serif" font-size="280" fill="white" text-anchor="middle" font-weight="bold">🥕</text>
 </svg>

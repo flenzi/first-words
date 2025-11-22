@@ -1,15 +1,10 @@
 <svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="800" fill="#F3E5F5"/>
-  <!-- Back legs -->
-  <rect x="250" y="300" width="30" height="350" rx="8" fill="#6D4C41" stroke="#3E2723" stroke-width="4"/>
-  <rect x="520" y="300" width="30" height="350" rx="8" fill="#6D4C41" stroke="#3E2723" stroke-width="4"/>
-  <!-- Backrest -->
-  <rect x="250" y="280" width="300" height="120" rx="15" fill="#8D6E63" stroke="#3E2723" stroke-width="5"/>
-  <!-- Seat -->
-  <rect x="240" y="400" width="320" height="25" rx="10" fill="#8D6E63" stroke="#3E2723" stroke-width="5"/>
-  <!-- Front legs -->
-  <rect x="250" y="425" width="30" height="225" rx="8" fill="#795548" stroke="#3E2723" stroke-width="4"/>
-  <rect x="520" y="425" width="30" height="225" rx="8" fill="#795548" stroke="#3E2723" stroke-width="4"/>
-  <!-- Crossbar -->
-  <rect x="260" y="550" width="280" height="15" rx="7" fill="#6D4C41"/>
+  <defs>
+    <linearGradient id="grad_27058" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B4513;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#grad_16070)"/>
+  <text x="400" y="480" font-family="Arial, sans-serif" font-size="280" fill="white" text-anchor="middle" font-weight="bold">🪑</text>
 </svg>
