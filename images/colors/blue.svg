@@ -1,10 +1,21 @@
 <svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad_" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0000FF;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0000FF;stop-opacity:0.7" />
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1565C0;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <rect width="800" height="800" fill="url(#grad_)"/>
-  <text x="400" y="480" font-family="Arial, sans-serif" font-size="280" fill="white" text-anchor="middle" font-weight="bold">💙</text>
+  <rect width="800" height="800" fill="url(#blueGrad)"/>
+  <!-- White clouds -->
+  <g fill="#FFF" opacity="0.9">
+    <circle cx="200" cy="200" r="50"/>
+    <circle cx="250" cy="180" r="60"/>
+    <circle cx="300" cy="200" r="50"/>
+    <circle cx="500" cy="250" r="55"/>
+    <circle cx="560" cy="230" r="65"/>
+    <circle cx="620" cy="250" r="55"/>
+  </g>
+  <!-- Large blue circle in center -->
+  <circle cx="400" cy="450" r="180" fill="#0D47A1" stroke="#01579B" stroke-width="8"/>
+  <circle cx="400" cy="450" r="140" fill="#1976D2"/>
 </svg>

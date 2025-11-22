@@ -1,10 +1,25 @@
 <svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad_18665" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1E90FF;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1E90FF;stop-opacity:0.7" />
+    <linearGradient id="carGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0277BD;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <rect width="800" height="800" fill="url(#grad_18910)"/>
-  <text x="400" y="480" font-family="Arial, sans-serif" font-size="280" fill="white" text-anchor="middle" font-weight="bold">🚗</text>
+  <rect width="800" height="800" fill="#E3F2FD"/>
+  <!-- Car body -->
+  <rect x="200" y="400" width="400" height="120" rx="20" fill="url(#carGrad)" stroke="#01579B" stroke-width="5"/>
+  <!-- Car top/cabin -->
+  <path d="M 280 400 L 300 320 L 500 320 L 520 400 Z" fill="url(#carGrad)" stroke="#01579B" stroke-width="5"/>
+  <!-- Windows -->
+  <path d="M 310 390 L 325 330 L 450 330 L 465 390 Z" fill="#B3E5FC" stroke="#01579B" stroke-width="3"/>
+  <line x1="390" y1="330" x2="390" y2="390" stroke="#01579B" stroke-width="3"/>
+  <!-- Wheels -->
+  <circle cx="280" cy="520" r="50" fill="#424242" stroke="#000" stroke-width="5"/>
+  <circle cx="280" cy="520" r="25" fill="#757575"/>
+  <circle cx="520" cy="520" r="50" fill="#424242" stroke="#000" stroke-width="5"/>
+  <circle cx="520" cy="520" r="25" fill="#757575"/>
+  <!-- Headlight -->
+  <circle cx="590" cy="450" r="15" fill="#FFEB3B"/>
+  <!-- Door handle -->
+  <rect x="450" y="440" width="30" height="8" rx="4" fill="#263238"/>
 </svg>

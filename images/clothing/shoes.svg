@@ -1,10 +1,20 @@
 <svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="grad_" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#8B0000;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8B0000;stop-opacity:0.7" />
-    </linearGradient>
-  </defs>
-  <rect width="800" height="800" fill="url(#grad_)"/>
-  <text x="400" y="480" font-family="Arial, sans-serif" font-size="280" fill="white" text-anchor="middle" font-weight="bold">👟</text>
+  <rect width="800" height="800" fill="#E8EAF6"/>
+  <!-- Left shoe -->
+  <ellipse cx="300" cy="520" rx="120" ry="60" fill="#1976D2" stroke="#0D47A1" stroke-width="5"/>
+  <path d="M 200 500 Q 220 450 280 440 L 320 440 L 340 500" fill="#1976D2" stroke="#0D47A1" stroke-width="5"/>
+  <ellipse cx="300" cy="460" rx="40" ry="25" fill="#64B5F6"/>
+  <circle cx="240" cy="470" r="8" fill="#FFF"/>
+  <circle cx="270" cy="465" r="8" fill="#FFF"/>
+  <circle cx="300" cy="463" r="8" fill="#FFF"/>
+  <path d="M 180 510 Q 190 530 210 535" fill="none" stroke="#0D47A1" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Right shoe -->
+  <ellipse cx="500" cy="520" rx="120" ry="60" fill="#1976D2" stroke="#0D47A1" stroke-width="5"/>
+  <path d="M 400 500 Q 420 450 480 440 L 520 440 L 540 500" fill="#1976D2" stroke="#0D47A1" stroke-width="5"/>
+  <ellipse cx="500" cy="460" rx="40" ry="25" fill="#64B5F6"/>
+  <circle cx="440" cy="470" r="8" fill="#FFF"/>
+  <circle cx="470" cy="465" r="8" fill="#FFF"/>
+  <circle cx="500" cy="463" r="8" fill="#FFF"/>
+  <path d="M 380" y1="510" Q 390 530 410 535" fill="none" stroke="#0D47A1" stroke-width="4" stroke-linecap="round"/>
 </svg>

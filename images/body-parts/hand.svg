@@ -1,10 +1,19 @@
 <svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="grad_12931" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FFE4B5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#FFE4B5;stop-opacity:0.7" />
-    </linearGradient>
-  </defs>
-  <rect width="800" height="800" fill="url(#grad_9536)"/>
-  <text x="400" y="480" font-family="Arial, sans-serif" font-size="280" fill="white" text-anchor="middle" font-weight="bold">✋</text>
+  <rect width="800" height="800" fill="#FFF3E0"/>
+  <!-- Palm -->
+  <ellipse cx="400" cy="500" rx="120" ry="150" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
+  <!-- Thumb -->
+  <ellipse cx="280" cy="450" rx="40" ry="70" fill="#FFCC80" stroke="#E65100" stroke-width="5" transform="rotate(-30 280 450)"/>
+  <!-- Index finger -->
+  <rect x="360" y="250" width="50" height="150" rx="25" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
+  <circle cx="385" cy="250" r="25" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
+  <!-- Middle finger -->
+  <rect x="420" y="220" width="50" height="180" rx="25" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
+  <circle cx="445" cy="220" r="25" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
+  <!-- Ring finger -->
+  <rect x="480" y="250" width="50" height="150" rx="25" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
+  <circle cx="505" cy="250" r="25" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
+  <!-- Pinky -->
+  <rect x="540" y="300" width="45" height="120" rx="22" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
+  <circle cx="562" cy="300" r="22" fill="#FFCC80" stroke="#E65100" stroke-width="5"/>
 </svg>
