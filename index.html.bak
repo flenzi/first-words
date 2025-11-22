@@ -422,12 +422,12 @@
                             name: { en: 'House Items', es: 'Cosas de Casa' },
                             emoji: '🪑',
                             images: [
-                                { name: { en: 'Chair', es: 'Silla' }, svgSrc: 'images/household/chair.svg', photoSrc: 'images/photos/household/chair.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Table', es: 'Mesa' }, svgSrc: 'images/household/table.svg', photoSrc: 'images/photos/household/table.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Spoon', es: 'Cuchara' }, svgSrc: 'images/household/spoon.svg', photoSrc: 'images/photos/household/spoon.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Cup', es: 'Taza' }, svgSrc: 'images/household/cup.svg', photoSrc: 'images/photos/household/cup.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Bed', es: 'Cama' }, svgSrc: 'images/household/bed.svg', photoSrc: 'images/photos/household/bed.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Door', es: 'Puerta' }, svgSrc: 'images/household/door.svg', photoSrc: 'images/photos/household/door.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Chair', es: 'Silla' }, src: 'images/household/chair.svg', credit: 'Placeholder' },
+                                { name: { en: 'Table', es: 'Mesa' }, src: 'images/household/table.svg', credit: 'Placeholder' },
+                                { name: { en: 'Spoon', es: 'Cuchara' }, src: 'images/household/spoon.svg', credit: 'Placeholder' },
+                                { name: { en: 'Cup', es: 'Taza' }, src: 'images/household/cup.svg', credit: 'Placeholder' },
+                                { name: { en: 'Bed', es: 'Cama' }, src: 'images/household/bed.svg', credit: 'Placeholder' },
+                                { name: { en: 'Door', es: 'Puerta' }, src: 'images/household/door.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
@@ -435,11 +435,11 @@
                             name: { en: 'Clothes', es: 'Ropa' },
                             emoji: '👕',
                             images: [
-                                { name: { en: 'T-Shirt', es: 'Camiseta' }, svgSrc: 'images/clothing/tshirt.svg', photoSrc: 'images/photos/clothing/tshirt.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Pants', es: 'Pantalón' }, svgSrc: 'images/clothing/pants.svg', photoSrc: 'images/photos/clothing/pants.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Shoes', es: 'Zapatos' }, svgSrc: 'images/clothing/shoes.svg', photoSrc: 'images/photos/clothing/shoes.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Hat', es: 'Sombrero' }, svgSrc: 'images/clothing/hat.svg', photoSrc: 'images/photos/clothing/hat.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Socks', es: 'Calcetines' }, svgSrc: 'images/clothing/socks.svg', photoSrc: 'images/photos/clothing/socks.jpg', credit: 'Placeholder' },
+                                { name: { en: 'T-Shirt', es: 'Camiseta' }, src: 'images/clothing/tshirt.svg', credit: 'Placeholder' },
+                                { name: { en: 'Pants', es: 'Pantalón' }, src: 'images/clothing/pants.svg', credit: 'Placeholder' },
+                                { name: { en: 'Shoes', es: 'Zapatos' }, src: 'images/clothing/shoes.svg', credit: 'Placeholder' },
+                                { name: { en: 'Hat', es: 'Sombrero' }, src: 'images/clothing/hat.svg', credit: 'Placeholder' },
+                                { name: { en: 'Socks', es: 'Calcetines' }, src: 'images/clothing/socks.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
@@ -447,12 +447,12 @@
                             name: { en: 'Colors', es: 'Colores' },
                             emoji: '🌈',
                             images: [
-                                { name: { en: 'Red', es: 'Rojo' }, svgSrc: 'images/colors/red.svg', photoSrc: 'images/photos/colors/red.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Blue', es: 'Azul' }, svgSrc: 'images/colors/blue.svg', photoSrc: 'images/photos/colors/blue.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Yellow', es: 'Amarillo' }, svgSrc: 'images/colors/yellow.svg', photoSrc: 'images/photos/colors/yellow.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Green', es: 'Verde' }, svgSrc: 'images/colors/green.svg', photoSrc: 'images/photos/colors/green.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/colors/orange.svg', photoSrc: 'images/photos/colors/orange.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Purple', es: 'Morado' }, svgSrc: 'images/colors/purple.svg', photoSrc: 'images/photos/colors/purple.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Red', es: 'Rojo' }, src: 'images/colors/red.svg', credit: 'Placeholder' },
+                                { name: { en: 'Blue', es: 'Azul' }, src: 'images/colors/blue.svg', credit: 'Placeholder' },
+                                { name: { en: 'Yellow', es: 'Amarillo' }, src: 'images/colors/yellow.svg', credit: 'Placeholder' },
+                                { name: { en: 'Green', es: 'Verde' }, src: 'images/colors/green.svg', credit: 'Placeholder' },
+                                { name: { en: 'Orange', es: 'Naranja' }, src: 'images/colors/orange.svg', credit: 'Placeholder' },
+                                { name: { en: 'Purple', es: 'Morado' }, src: 'images/colors/purple.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
@@ -460,13 +460,13 @@
                             name: { en: 'Wild Animals', es: 'Animales Salvajes' },
                             emoji: '🦁',
                             images: [
-                                { name: { en: 'Lion', es: 'León' }, svgSrc: 'images/wild-animals/lion.svg', photoSrc: 'images/photos/wild-animals/lion.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Elephant', es: 'Elefante' }, svgSrc: 'images/wild-animals/elephant.svg', photoSrc: 'images/photos/wild-animals/elephant.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Monkey', es: 'Mono' }, svgSrc: 'images/wild-animals/monkey.svg', photoSrc: 'images/photos/wild-animals/monkey.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Giraffe', es: 'Jirafa' }, svgSrc: 'images/wild-animals/giraffe.svg', photoSrc: 'images/photos/wild-animals/giraffe.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Bear', es: 'Oso' }, svgSrc: 'images/wild-animals/bear.svg', photoSrc: 'images/photos/wild-animals/bear.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Tiger', es: 'Tigre' }, svgSrc: 'images/wild-animals/tiger.svg', photoSrc: 'images/photos/wild-animals/tiger.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Zebra', es: 'Cebra' }, svgSrc: 'images/wild-animals/zebra.svg', photoSrc: 'images/photos/wild-animals/zebra.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Lion', es: 'León' }, src: 'images/wild-animals/lion.svg', credit: 'Placeholder' },
+                                { name: { en: 'Elephant', es: 'Elefante' }, src: 'images/wild-animals/elephant.svg', credit: 'Placeholder' },
+                                { name: { en: 'Monkey', es: 'Mono' }, src: 'images/wild-animals/monkey.svg', credit: 'Placeholder' },
+                                { name: { en: 'Giraffe', es: 'Jirafa' }, src: 'images/wild-animals/giraffe.svg', credit: 'Placeholder' },
+                                { name: { en: 'Bear', es: 'Oso' }, src: 'images/wild-animals/bear.svg', credit: 'Placeholder' },
+                                { name: { en: 'Tiger', es: 'Tigre' }, src: 'images/wild-animals/tiger.svg', credit: 'Placeholder' },
+                                { name: { en: 'Zebra', es: 'Cebra' }, src: 'images/wild-animals/zebra.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
@@ -474,12 +474,12 @@
                             name: { en: 'Fruits', es: 'Frutas' },
                             emoji: '🍎',
                             images: [
-                                { name: { en: 'Apple', es: 'Manzana' }, svgSrc: 'images/fruits/apple.svg', photoSrc: 'images/photos/fruits/apple.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Banana', es: 'Plátano' }, svgSrc: 'images/fruits/banana.svg', photoSrc: 'images/photos/fruits/banana.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/fruits/orange.svg', photoSrc: 'images/photos/fruits/orange.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Strawberry', es: 'Fresa' }, svgSrc: 'images/fruits/strawberry.svg', photoSrc: 'images/photos/fruits/strawberry.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Grapes', es: 'Uvas' }, svgSrc: 'images/fruits/grapes.svg', photoSrc: 'images/photos/fruits/grapes.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Watermelon', es: 'Sandía' }, svgSrc: 'images/fruits/watermelon.svg', photoSrc: 'images/photos/fruits/watermelon.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Apple', es: 'Manzana' }, src: 'images/fruits/apple.svg', credit: 'Placeholder' },
+                                { name: { en: 'Banana', es: 'Plátano' }, src: 'images/fruits/banana.svg', credit: 'Placeholder' },
+                                { name: { en: 'Orange', es: 'Naranja' }, src: 'images/fruits/orange.svg', credit: 'Placeholder' },
+                                { name: { en: 'Strawberry', es: 'Fresa' }, src: 'images/fruits/strawberry.svg', credit: 'Placeholder' },
+                                { name: { en: 'Grapes', es: 'Uvas' }, src: 'images/fruits/grapes.svg', credit: 'Placeholder' },
+                                { name: { en: 'Watermelon', es: 'Sandía' }, src: 'images/fruits/watermelon.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
@@ -487,11 +487,11 @@
                             name: { en: 'Vegetables', es: 'Verduras' },
                             emoji: '🥕',
                             images: [
-                                { name: { en: 'Carrot', es: 'Zanahoria' }, svgSrc: 'images/vegetables/carrot.svg', photoSrc: 'images/photos/vegetables/carrot.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Tomato', es: 'Tomate' }, svgSrc: 'images/vegetables/tomato.svg', photoSrc: 'images/photos/vegetables/tomato.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Broccoli', es: 'Brócoli' }, svgSrc: 'images/vegetables/broccoli.svg', photoSrc: 'images/photos/vegetables/broccoli.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Corn', es: 'Maíz' }, svgSrc: 'images/vegetables/corn.svg', photoSrc: 'images/photos/vegetables/corn.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Potato', es: 'Papa' }, svgSrc: 'images/vegetables/potato.svg', photoSrc: 'images/photos/vegetables/potato.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Carrot', es: 'Zanahoria' }, src: 'images/vegetables/carrot.svg', credit: 'Placeholder' },
+                                { name: { en: 'Tomato', es: 'Tomate' }, src: 'images/vegetables/tomato.svg', credit: 'Placeholder' },
+                                { name: { en: 'Broccoli', es: 'Brócoli' }, src: 'images/vegetables/broccoli.svg', credit: 'Placeholder' },
+                                { name: { en: 'Corn', es: 'Maíz' }, src: 'images/vegetables/corn.svg', credit: 'Placeholder' },
+                                { name: { en: 'Potato', es: 'Papa' }, src: 'images/vegetables/potato.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
@@ -499,12 +499,12 @@
                             name: { en: 'Vehicles', es: 'Vehículos' },
                             emoji: '🚗',
                             images: [
-                                { name: { en: 'Car', es: 'Coche' }, svgSrc: 'images/vehicles/car.svg', photoSrc: 'images/photos/vehicles/car.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Bus', es: 'Autobús' }, svgSrc: 'images/vehicles/bus.svg', photoSrc: 'images/photos/vehicles/bus.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Truck', es: 'Camión' }, svgSrc: 'images/vehicles/truck.svg', photoSrc: 'images/photos/vehicles/truck.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Airplane', es: 'Avión' }, svgSrc: 'images/vehicles/airplane.svg', photoSrc: 'images/photos/vehicles/airplane.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Boat', es: 'Barco' }, svgSrc: 'images/vehicles/boat.svg', photoSrc: 'images/photos/vehicles/boat.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Train', es: 'Tren' }, svgSrc: 'images/vehicles/train.svg', photoSrc: 'images/photos/vehicles/train.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Car', es: 'Coche' }, src: 'images/vehicles/car.svg', credit: 'Placeholder' },
+                                { name: { en: 'Bus', es: 'Autobús' }, src: 'images/vehicles/bus.svg', credit: 'Placeholder' },
+                                { name: { en: 'Truck', es: 'Camión' }, src: 'images/vehicles/truck.svg', credit: 'Placeholder' },
+                                { name: { en: 'Airplane', es: 'Avión' }, src: 'images/vehicles/airplane.svg', credit: 'Placeholder' },
+                                { name: { en: 'Boat', es: 'Barco' }, src: 'images/vehicles/boat.svg', credit: 'Placeholder' },
+                                { name: { en: 'Train', es: 'Tren' }, src: 'images/vehicles/train.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
@@ -512,12 +512,12 @@
                             name: { en: 'Body Parts', es: 'Partes del Cuerpo' },
                             emoji: '👋',
                             images: [
-                                { name: { en: 'Hand', es: 'Mano' }, svgSrc: 'images/body-parts/hand.svg', photoSrc: 'images/photos/body-parts/hand.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Foot', es: 'Pie' }, svgSrc: 'images/body-parts/foot.svg', photoSrc: 'images/photos/body-parts/foot.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Eye', es: 'Ojo' }, svgSrc: 'images/body-parts/eye.svg', photoSrc: 'images/photos/body-parts/eye.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Nose', es: 'Nariz' }, svgSrc: 'images/body-parts/nose.svg', photoSrc: 'images/photos/body-parts/nose.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Mouth', es: 'Boca' }, svgSrc: 'images/body-parts/mouth.svg', photoSrc: 'images/photos/body-parts/mouth.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Ear', es: 'Oreja' }, svgSrc: 'images/body-parts/ear.svg', photoSrc: 'images/photos/body-parts/ear.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Hand', es: 'Mano' }, src: 'images/body-parts/hand.svg', credit: 'Placeholder' },
+                                { name: { en: 'Foot', es: 'Pie' }, src: 'images/body-parts/foot.svg', credit: 'Placeholder' },
+                                { name: { en: 'Eye', es: 'Ojo' }, src: 'images/body-parts/eye.svg', credit: 'Placeholder' },
+                                { name: { en: 'Nose', es: 'Nariz' }, src: 'images/body-parts/nose.svg', credit: 'Placeholder' },
+                                { name: { en: 'Mouth', es: 'Boca' }, src: 'images/body-parts/mouth.svg', credit: 'Placeholder' },
+                                { name: { en: 'Ear', es: 'Oreja' }, src: 'images/body-parts/ear.svg', credit: 'Placeholder' },
                             ]
                         },
                         {
@@ -525,12 +525,12 @@
                             name: { en: 'Nature', es: 'Naturaleza' },
                             emoji: '☀️',
                             images: [
-                                { name: { en: 'Sun', es: 'Sol' }, svgSrc: 'images/nature/sun.svg', photoSrc: 'images/photos/nature/sun.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Moon', es: 'Luna' }, svgSrc: 'images/nature/moon.svg', photoSrc: 'images/photos/nature/moon.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Star', es: 'Estrella' }, svgSrc: 'images/nature/star.svg', photoSrc: 'images/photos/nature/star.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Tree', es: 'Árbol' }, svgSrc: 'images/nature/tree.svg', photoSrc: 'images/photos/nature/tree.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Flower', es: 'Flor' }, svgSrc: 'images/nature/flower.svg', photoSrc: 'images/photos/nature/flower.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Cloud', es: 'Nube' }, svgSrc: 'images/nature/cloud.svg', photoSrc: 'images/photos/nature/cloud.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Sun', es: 'Sol' }, src: 'images/nature/sun.svg', credit: 'Placeholder' },
+                                { name: { en: 'Moon', es: 'Luna' }, src: 'images/nature/moon.svg', credit: 'Placeholder' },
+                                { name: { en: 'Star', es: 'Estrella' }, src: 'images/nature/star.svg', credit: 'Placeholder' },
+                                { name: { en: 'Tree', es: 'Árbol' }, src: 'images/nature/tree.svg', credit: 'Placeholder' },
+                                { name: { en: 'Flower', es: 'Flor' }, src: 'images/nature/flower.svg', credit: 'Placeholder' },
+                                { name: { en: 'Cloud', es: 'Nube' }, src: 'images/nature/cloud.svg', credit: 'Placeholder' },
                             ]
                         }
                     ]
@@ -551,14 +551,6 @@
                 switchLanguage(lang) {
                     this.currentLang = lang;
                     localStorage.setItem('firstwords-lang', lang);
-                },
-                switchMode(mode) {
-                    this.imageMode = mode;
-                    localStorage.setItem('firstwords-imagemode', mode);
-                },
-                getCurrentImageSrc() {
-                    if (!this.currentImage) return '';
-                    return this.imageMode === 'svg' ? this.currentImage.svgSrc : this.currentImage.photoSrc;
                 },
                 selectCategory(category) {
                     this.selectedCategory = category;
