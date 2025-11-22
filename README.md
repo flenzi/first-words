@@ -4,11 +4,18 @@ A playful, interactive web app to help toddlers (ages 2-3) learn their first wor
 
 ## ✨ Features
 
+- **Bilingual Support (English/Spanish):**
+  - Toggle between English and Spanish with one click
+  - EN/ES buttons in top-right corner
+  - Language preference saved automatically
+  - All categories and words translated
+  - Images have no text - work in any language!
+
 - **4 Learning Categories:**
-  - 🐄 Farm Animals (cow, pig, sheep, chicken, horse, duck)
-  - 🪑 House Items (chair, table, spoon, cup, bed, door)
-  - 👕 Clothes (t-shirt, pants, shoes, hat, socks)
-  - 🌈 Colors (red, blue, yellow, green, orange, purple)
+  - 🐄 Farm Animals / Animales de Granja (cow, pig, sheep, chicken, horse, duck)
+  - 🪑 House Items / Cosas de Casa (chair, table, spoon, cup, bed, door)
+  - 👕 Clothes / Ropa (t-shirt, pants, shoes, hat, socks)
+  - 🌈 Colors / Colores (red, blue, yellow, green, orange, purple)
 
 - **Child-Friendly Interface:**
   - Large, colorful buttons
