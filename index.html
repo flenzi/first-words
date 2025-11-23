@@ -208,14 +208,24 @@
             object-fit: contain;
         }
 
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
         .image-name {
             font-size: 3rem;
             font-weight: bold;
-            color: #667eea;
-            margin-top: 20px;
+            color: #fff;
+            margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-align: center;
         }
 
         .navigation {
@@ -339,9 +349,14 @@
                 max-height: 300px;
             }
 
+            .category-title {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+
             .image-name {
                 font-size: 1.5rem;
-                margin-top: 15px;
+                margin-bottom: 20px;
             }
 
             .navigation {
@@ -392,6 +407,10 @@
             .category-btn {
                 padding: 18px 10px;
                 font-size: 0.95rem;
+            }
+
+            .category-title {
+                font-size: 0.9rem;
             }
 
             .image-name {
@@ -455,11 +474,12 @@
             <button @click="goBack" class="back-btn">⬅️ {{ t.backButton }}</button>
 
             <div class="viewer-container">
+                <div class="category-title">{{ selectedCategoryData.name[currentLang] }}</div>
+                <div class="image-name">{{ currentImage.name[currentLang] }}</div>
+
                 <div class="image-container">
                     <img :src="currentImage.svgSrc" :alt="currentImage.name[currentLang]" class="main-image">
                 </div>
-
-                <div class="image-name">{{ currentImage.name[currentLang] }}</div>
 
                 <div class="navigation">
                     <button @click="previousImage" class="nav-btn">◀️</button>
@@ -988,6 +1008,9 @@
                 },
                 currentImage() {
                     return this.currentCategoryImages[this.currentIndex] || {};
+                },
+                selectedCategoryData() {
+                    return this.selectedCategory || {};
                 }
             },
             methods: {
