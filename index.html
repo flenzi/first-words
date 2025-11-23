@@ -896,7 +896,8 @@
                 },
                 selectCategory(category) {
                     this.selectedCategory = category;
-                    this.currentIndex = 0;
+                    // Start at a random image position
+                    this.currentIndex = Math.floor(Math.random() * category.images.length);
                     this.imageLoading = true;
                     this.isViewerFullscreen = true;
                     // Preload images after a short delay
