@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Words - Learning Fun!</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .lang-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .mode-toggle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .lang-btn, .mode-btn {
+            background: rgba(255,255,255,0.3);
+            border: 2px solid transparent;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover, .mode-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.05);
+        }
+
+        .lang-btn.active, .mode-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 60px;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 3rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header p {
+            color: #fff;
+            font-size: 1.3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            padding: 30px 20px;
+            border-radius: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-btn:hover {
+            transform: scale(1.1) rotate(-2deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            transform: scale(1.05);
+        }
+
+        .category-btn:nth-child(1) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .category-btn:nth-child(2) {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .category-btn:nth-child(3) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+
+        .category-btn:nth-child(4) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+        }
+
+        .viewer-container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .main-image {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            object-fit: contain;
+        }
+
+        .image-name {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .nav-btn:active {
+            transform: scale(1.1);
+        }
+
+        .counter {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .credits {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .credits h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .credits p {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .credits a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .credits a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                margin-top: 70px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .category-btn {
+                padding: 20px 15px;
+                font-size: 1.2rem;
+            }
+
+            .image-name {
+                font-size: 2rem;
+            }
+
+            .nav-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Image Mode Toggle -->
+        <div class="mode-toggle">
+            <button
+                @click="switchMode('svg')"
+                :class="{ 'mode-btn': true, 'active': imageMode === 'svg' }">
+                🎨 SVG
+            </button>
+            <button
+                @click="switchMode('photo')"
+                :class="{ 'mode-btn': true, 'active': imageMode === 'photo' }">
+                📷 Photo
+            </button>
+        </div>
+
+        <!-- Language Toggle -->
+        <div class="lang-toggle">
+            <button
+                @click="switchLanguage('en')"
+                :class="{ 'lang-btn': true, 'active': currentLang === 'en' }">
+                EN
+            </button>
+            <button
+                @click="switchLanguage('es')"
+                :class="{ 'lang-btn': true, 'active': currentLang === 'es' }">
+                ES
+            </button>
+        </div>
+
+        <div class="header">
+            <h1>{{ t.title }}</h1>
+            <p>{{ t.subtitle }}</p>
+        </div>
+
+        <!-- Category Selection -->
+        <div v-if="!selectedCategory" class="categories">
+            <button
+                v-for="category in categories"
+                :key="category.id"
+                @click="selectCategory(category)"
+                class="category-btn">
+                {{ category.emoji }} {{ category.name[currentLang] }}
+            </button>
+        </div>
+
+        <!-- Image Viewer -->
+        <div v-else>
+            <button @click="goBack" class="back-btn">⬅️ {{ t.backButton }}</button>
+
+            <div class="viewer-container">
+                <div class="image-container">
+                    <img :src="getCurrentImageSrc()" :alt="currentImage.name[currentLang]" class="main-image">
+                </div>
+
+                <div class="image-name">{{ currentImage.name[currentLang] }}</div>
+
+                <div class="navigation">
+                    <button @click="previousImage" class="nav-btn">◀️</button>
+                    <div class="counter">{{ currentIndex + 1 }} / {{ currentCategoryImages.length }}</div>
+                    <button @click="nextImage" class="nav-btn">▶️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credits Section -->
+        <div class="credits">
+            <h2>📸 {{ t.creditsTitle }}</h2>
+            <p><strong>{{ t.creditsStatus }}</strong> {{ t.creditsText1 }}</p>
+            <p>{{ t.creditsText2 }}</p>
+            <ul style="text-align: left; max-width: 600px; margin: 10px auto;">
+                <li><a href="https://unsplash.com" target="_blank">Unsplash</a> - CC0 licensed images (free to use)</li>
+                <li><a href="https://pexels.com" target="_blank">Pexels</a> - Free to use images</li>
+            </ul>
+            <p>{{ t.creditsText3 }}</p>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    currentLang: localStorage.getItem('firstwords-lang') || 'en',
+                    imageMode: localStorage.getItem('firstwords-imagemode') || 'svg',
+                    selectedCategory: null,
+                    currentIndex: 0,
+                    translations: {
+                        en: {
+                            title: '🌟 First Words 🌟',
+                            subtitle: 'Learn and have fun!',
+                            backButton: 'Back to Categories',
+                            creditsTitle: 'Image Credits',
+                            creditsStatus: 'Current Status:',
+                            creditsText1: 'This app currently uses colorful SVG placeholder images for demonstration purposes.',
+                            creditsText2: 'To use real photos, please replace the placeholder SVG files with actual images from free-to-use platforms:',
+                            creditsText3: 'See the README.md file for detailed instructions on sourcing and adding images.'
+                        },
+                        es: {
+                            title: '🌟 Primeras Palabras 🌟',
+                            subtitle: '¡Aprende y diviértete!',
+                            backButton: 'Volver a Categorías',
+                            creditsTitle: 'Créditos de Imágenes',
+                            creditsStatus: 'Estado Actual:',
+                            creditsText1: 'Esta aplicación usa imágenes SVG de colores como placeholders para demostración.',
+                            creditsText2: 'Para usar fotos reales, reemplaza los archivos SVG con imágenes de plataformas gratuitas:',
+                            creditsText3: 'Consulta el archivo README.md para instrucciones detalladas sobre cómo obtener y agregar imágenes.'
+                        }
+                    },
+                    categories: [
+                        {
+                            id: 'farm-animals',
+                            name: { en: 'Farm Animals', es: 'Animales de Granja' },
+                            emoji: '🐄',
+                            images: [
+                                { name: { en: 'Cow', es: 'Vaca' }, svgSrc: 'images/farm-animals/cow.svg', photoSrc: 'images/photos/farm-animals/cow.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Pig', es: 'Cerdo' }, svgSrc: 'images/farm-animals/pig.svg', photoSrc: 'images/photos/farm-animals/pig.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Sheep', es: 'Oveja' }, svgSrc: 'images/farm-animals/sheep.svg', photoSrc: 'images/photos/farm-animals/sheep.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg', photoSrc: 'images/photos/farm-animals/chicken.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Horse', es: 'Caballo' }, svgSrc: 'images/farm-animals/horse.svg', photoSrc: 'images/photos/farm-animals/horse.jpg', credit: 'Placeholder' },
+                                { name: { en: 'Duck', es: 'Pato' }, svgSrc: 'images/farm-animals/duck.svg', photoSrc: 'images/photos/farm-animals/duck.jpg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'household',
+                            name: { en: 'House Items', es: 'Cosas de Casa' },
+                            emoji: '🪑',
+                            images: [
+                                { name: { en: 'Chair', es: 'Silla' }, src: 'images/household/chair.svg', credit: 'Placeholder' },
+                                { name: { en: 'Table', es: 'Mesa' }, src: 'images/household/table.svg', credit: 'Placeholder' },
+                                { name: { en: 'Spoon', es: 'Cuchara' }, src: 'images/household/spoon.svg', credit: 'Placeholder' },
+                                { name: { en: 'Cup', es: 'Taza' }, src: 'images/household/cup.svg', credit: 'Placeholder' },
+                                { name: { en: 'Bed', es: 'Cama' }, src: 'images/household/bed.svg', credit: 'Placeholder' },
+                                { name: { en: 'Door', es: 'Puerta' }, src: 'images/household/door.svg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'clothing',
+                            name: { en: 'Clothes', es: 'Ropa' },
+                            emoji: '👕',
+                            images: [
+                                { name: { en: 'T-Shirt', es: 'Camiseta' }, src: 'images/clothing/tshirt.svg', credit: 'Placeholder' },
+                                { name: { en: 'Pants', es: 'Pantalón' }, src: 'images/clothing/pants.svg', credit: 'Placeholder' },
+                                { name: { en: 'Shoes', es: 'Zapatos' }, src: 'images/clothing/shoes.svg', credit: 'Placeholder' },
+                                { name: { en: 'Hat', es: 'Sombrero' }, src: 'images/clothing/hat.svg', credit: 'Placeholder' },
+                                { name: { en: 'Socks', es: 'Calcetines' }, src: 'images/clothing/socks.svg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'colors',
+                            name: { en: 'Colors', es: 'Colores' },
+                            emoji: '🌈',
+                            images: [
+                                { name: { en: 'Red', es: 'Rojo' }, src: 'images/colors/red.svg', credit: 'Placeholder' },
+                                { name: { en: 'Blue', es: 'Azul' }, src: 'images/colors/blue.svg', credit: 'Placeholder' },
+                                { name: { en: 'Yellow', es: 'Amarillo' }, src: 'images/colors/yellow.svg', credit: 'Placeholder' },
+                                { name: { en: 'Green', es: 'Verde' }, src: 'images/colors/green.svg', credit: 'Placeholder' },
+                                { name: { en: 'Orange', es: 'Naranja' }, src: 'images/colors/orange.svg', credit: 'Placeholder' },
+                                { name: { en: 'Purple', es: 'Morado' }, src: 'images/colors/purple.svg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'wild-animals',
+                            name: { en: 'Wild Animals', es: 'Animales Salvajes' },
+                            emoji: '🦁',
+                            images: [
+                                { name: { en: 'Lion', es: 'León' }, src: 'images/wild-animals/lion.svg', credit: 'Placeholder' },
+                                { name: { en: 'Elephant', es: 'Elefante' }, src: 'images/wild-animals/elephant.svg', credit: 'Placeholder' },
+                                { name: { en: 'Monkey', es: 'Mono' }, src: 'images/wild-animals/monkey.svg', credit: 'Placeholder' },
+                                { name: { en: 'Giraffe', es: 'Jirafa' }, src: 'images/wild-animals/giraffe.svg', credit: 'Placeholder' },
+                                { name: { en: 'Bear', es: 'Oso' }, src: 'images/wild-animals/bear.svg', credit: 'Placeholder' },
+                                { name: { en: 'Tiger', es: 'Tigre' }, src: 'images/wild-animals/tiger.svg', credit: 'Placeholder' },
+                                { name: { en: 'Zebra', es: 'Cebra' }, src: 'images/wild-animals/zebra.svg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'fruits',
+                            name: { en: 'Fruits', es: 'Frutas' },
+                            emoji: '🍎',
+                            images: [
+                                { name: { en: 'Apple', es: 'Manzana' }, src: 'images/fruits/apple.svg', credit: 'Placeholder' },
+                                { name: { en: 'Banana', es: 'Plátano' }, src: 'images/fruits/banana.svg', credit: 'Placeholder' },
+                                { name: { en: 'Orange', es: 'Naranja' }, src: 'images/fruits/orange.svg', credit: 'Placeholder' },
+                                { name: { en: 'Strawberry', es: 'Fresa' }, src: 'images/fruits/strawberry.svg', credit: 'Placeholder' },
+                                { name: { en: 'Grapes', es: 'Uvas' }, src: 'images/fruits/grapes.svg', credit: 'Placeholder' },
+                                { name: { en: 'Watermelon', es: 'Sandía' }, src: 'images/fruits/watermelon.svg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'vegetables',
+                            name: { en: 'Vegetables', es: 'Verduras' },
+                            emoji: '🥕',
+                            images: [
+                                { name: { en: 'Carrot', es: 'Zanahoria' }, src: 'images/vegetables/carrot.svg', credit: 'Placeholder' },
+                                { name: { en: 'Tomato', es: 'Tomate' }, src: 'images/vegetables/tomato.svg', credit: 'Placeholder' },
+                                { name: { en: 'Broccoli', es: 'Brócoli' }, src: 'images/vegetables/broccoli.svg', credit: 'Placeholder' },
+                                { name: { en: 'Corn', es: 'Maíz' }, src: 'images/vegetables/corn.svg', credit: 'Placeholder' },
+                                { name: { en: 'Potato', es: 'Papa' }, src: 'images/vegetables/potato.svg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'vehicles',
+                            name: { en: 'Vehicles', es: 'Vehículos' },
+                            emoji: '🚗',
+                            images: [
+                                { name: { en: 'Car', es: 'Coche' }, src: 'images/vehicles/car.svg', credit: 'Placeholder' },
+                                { name: { en: 'Bus', es: 'Autobús' }, src: 'images/vehicles/bus.svg', credit: 'Placeholder' },
+                                { name: { en: 'Truck', es: 'Camión' }, src: 'images/vehicles/truck.svg', credit: 'Placeholder' },
+                                { name: { en: 'Airplane', es: 'Avión' }, src: 'images/vehicles/airplane.svg', credit: 'Placeholder' },
+                                { name: { en: 'Boat', es: 'Barco' }, src: 'images/vehicles/boat.svg', credit: 'Placeholder' },
+                                { name: { en: 'Train', es: 'Tren' }, src: 'images/vehicles/train.svg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'body-parts',
+                            name: { en: 'Body Parts', es: 'Partes del Cuerpo' },
+                            emoji: '👋',
+                            images: [
+                                { name: { en: 'Hand', es: 'Mano' }, src: 'images/body-parts/hand.svg', credit: 'Placeholder' },
+                                { name: { en: 'Foot', es: 'Pie' }, src: 'images/body-parts/foot.svg', credit: 'Placeholder' },
+                                { name: { en: 'Eye', es: 'Ojo' }, src: 'images/body-parts/eye.svg', credit: 'Placeholder' },
+                                { name: { en: 'Nose', es: 'Nariz' }, src: 'images/body-parts/nose.svg', credit: 'Placeholder' },
+                                { name: { en: 'Mouth', es: 'Boca' }, src: 'images/body-parts/mouth.svg', credit: 'Placeholder' },
+                                { name: { en: 'Ear', es: 'Oreja' }, src: 'images/body-parts/ear.svg', credit: 'Placeholder' },
+                            ]
+                        },
+                        {
+                            id: 'nature',
+                            name: { en: 'Nature', es: 'Naturaleza' },
+                            emoji: '☀️',
+                            images: [
+                                { name: { en: 'Sun', es: 'Sol' }, src: 'images/nature/sun.svg', credit: 'Placeholder' },
+                                { name: { en: 'Moon', es: 'Luna' }, src: 'images/nature/moon.svg', credit: 'Placeholder' },
+                                { name: { en: 'Star', es: 'Estrella' }, src: 'images/nature/star.svg', credit: 'Placeholder' },
+                                { name: { en: 'Tree', es: 'Árbol' }, src: 'images/nature/tree.svg', credit: 'Placeholder' },
+                                { name: { en: 'Flower', es: 'Flor' }, src: 'images/nature/flower.svg', credit: 'Placeholder' },
+                                { name: { en: 'Cloud', es: 'Nube' }, src: 'images/nature/cloud.svg', credit: 'Placeholder' },
+                            ]
+                        }
+                    ]
+                };
+            },
+            computed: {
+                t() {
+                    return this.translations[this.currentLang];
+                },
+                currentCategoryImages() {
+                    return this.selectedCategory ? this.selectedCategory.images : [];
+                },
+                currentImage() {
+                    return this.currentCategoryImages[this.currentIndex] || {};
+                }
+            },
+            methods: {
+                switchLanguage(lang) {
+                    this.currentLang = lang;
+                    localStorage.setItem('firstwords-lang', lang);
+                },
+                selectCategory(category) {
+                    this.selectedCategory = category;
+                    this.currentIndex = 0;
+                },
+                goBack() {
+                    this.selectedCategory = null;
+                    this.currentIndex = 0;
+                },
+                nextImage() {
+                    if (this.currentIndex < this.currentCategoryImages.length - 1) {
+                        this.currentIndex++;
+                    } else {
+                        this.currentIndex = 0; // Loop back to start
+                    }
+                },
+                previousImage() {
+                    if (this.currentIndex > 0) {
+                        this.currentIndex--;
+                    } else {
+                        this.currentIndex = this.currentCategoryImages.length - 1; // Loop to end
+                    }
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

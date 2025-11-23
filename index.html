@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Words - Learning Fun!</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .header-container {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 50px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 50px;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .lang-btn, .view-btn {
+            background: rgba(255,255,255,0.3);
+            border: 2px solid transparent;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .lang-btn:hover, .view-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.05);
+        }
+
+        .lang-btn.active, .view-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+
+        .sound-level {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .header p {
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            padding: 30px 20px;
+            border-radius: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-btn:hover {
+            transform: scale(1.1) rotate(-2deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            transform: scale(1.05);
+        }
+
+        .category-btn:nth-child(1) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .category-btn:nth-child(2) {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .category-btn:nth-child(3) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+
+        .category-btn:nth-child(4) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+        }
+
+        .viewer-container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .main-image {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            object-fit: contain;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #667eea;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .image-name {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            color: #000;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: none;
+            text-align: center;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .nav-btn:active {
+            transform: scale(1.1);
+        }
+
+        .counter {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header-container {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .view-toggle {
+                padding: 6px;
+                gap: 6px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+                margin-top: 30px;
+            }
+
+            .lang-toggle {
+                padding: 6px;
+                gap: 6px;
+            }
+
+            .footer-link {
+                font-size: 0.8rem;
+            }
+
+            .lang-btn, .view-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .header p {
+                font-size: 0.95rem;
+            }
+
+            .categories {
+                margin-top: 0;
+                gap: 15px;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .category-btn {
+                padding: 20px 10px;
+                font-size: 1rem;
+            }
+
+            .viewer-container {
+                padding: 20px;
+                margin-top: 10px;
+            }
+
+            .main-image {
+                max-height: 300px;
+            }
+
+            .category-title {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+
+            .image-name {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .navigation {
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+
+            .counter {
+                font-size: 1.2rem;
+            }
+
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 12px;
+            }
+
+            .lang-btn, .view-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .header p {
+                font-size: 0.85rem;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .category-btn {
+                padding: 18px 10px;
+                font-size: 0.95rem;
+            }
+
+            .category-title {
+                font-size: 0.9rem;
+            }
+
+            .image-name {
+                font-size: 1.3rem;
+            }
+
+            .sound-level {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header-container">
+            <div class="header">
+                <h1>{{ t.title }}</h1>
+                <p>{{ t.subtitle }}</p>
+            </div>
+
+            <div class="controls-row">
+                <div class="view-toggle">
+                    <button
+                        @click="switchView('categories')"
+                        :class="{ 'view-btn': true, 'active': viewMode === 'categories' }">
+                        📚 {{ t.viewCategories }}
+                    </button>
+                    <button
+                        @click="switchView('speech')"
+                        :class="{ 'view-btn': true, 'active': viewMode === 'speech' }">
+                        🗣️ {{ t.viewSpeech }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="!selectedCategory && viewMode === 'categories'" class="categories">
+            <button
+                v-for="category in categories"
+                :key="category.id"
+                @click="selectCategory(category)"
+                class="category-btn">
+                {{ category.emoji }} {{ category.name[currentLang] }}
+            </button>
+        </div>
+
+        <!-- Speech Therapy Sound Selection -->
+        <div v-if="!selectedCategory && viewMode === 'speech'" class="categories">
+            <button
+                v-for="sound in soundCategories[currentLang]"
+                :key="sound.id"
+                @click="selectCategory(sound)"
+                class="category-btn">
+                {{ sound.phonetic }} {{ sound.name }}
+                <br><span class="sound-level">{{ sound.level }}</span>
+            </button>
+        </div>
+
+        <!-- Image Viewer -->
+        <div v-if="selectedCategory">
+            <button @click="goBack" class="back-btn">⬅️ {{ t.backButton }}</button>
+
+            <div class="viewer-container">
+                <div class="category-title">{{ selectedCategoryData.name[currentLang] }}</div>
+                <div class="image-name">{{ currentImage.name[currentLang] }}</div>
+
+                <div class="image-container">
+                    <img :src="currentImage.svgSrc" :alt="currentImage.name[currentLang]" class="main-image">
+                </div>
+
+                <div class="navigation">
+                    <button @click="previousImage" class="nav-btn">◀️</button>
+                    <button @click="randomizeImages" class="nav-btn" title="Shuffle">🔀</button>
+                    <div class="counter">{{ currentIndex + 1 }} / {{ currentCategoryImages.length }}</div>
+                    <button @click="nextImage" class="nav-btn">▶️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="lang-toggle">
+                <button
+                    @click="switchLanguage('en')"
+                    :class="{ 'lang-btn': true, 'active': currentLang === 'en' }">
+                    EN
+                </button>
+                <button
+                    @click="switchLanguage('es')"
+                    :class="{ 'lang-btn': true, 'active': currentLang === 'es' }">
+                    ES
+                </button>
+            </div>
+            <a href="https://github.com/flenzi/first-words" target="_blank" class="footer-link">
+                GitHub Repository
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    currentLang: localStorage.getItem('firstwords-lang') || 'en',
+                    viewMode: localStorage.getItem('firstwords-viewmode') || 'categories',
+                    selectedCategory: null,
+                    currentIndex: 0,
+                    translations: {
+                        en: {
+                            title: '🌟 First Words 🌟',
+                            subtitle: 'Learn and have fun!',
+                            backButton: 'Back',
+                            viewCategories: 'Categories',
+                            viewSpeech: 'Speech Therapy'
+                        },
+                        es: {
+                            title: '🌟 Primeras Palabras 🌟',
+                            subtitle: '¡Aprende y diviértete!',
+                            backButton: 'Volver',
+                            viewCategories: 'Categorías',
+                            viewSpeech: 'Terapia del Habla'
+                        }
+                    },
+                    soundCategories: {
+                        en: [
+                            {
+                                id: 'sound-m-n',
+                                name: 'M & N Sounds',
+                                phonetic: '/m/ /n/',
+                                level: '⭐ Easy - Nasal Sounds',
+                                images: [
+                                    { name: { en: 'Monkey', es: 'Mono' }, svgSrc: 'images/wild-animals/monkey.svg' },
+                                    { name: { en: 'Moon', es: 'Luna' }, svgSrc: 'images/nature/moon.svg' },
+                                    { name: { en: 'Mouth', es: 'Boca' }, svgSrc: 'images/body-parts/mouth.svg' },
+                                    { name: { en: 'Watermelon', es: 'Sandía' }, svgSrc: 'images/fruits/watermelon.svg' },
+                                    { name: { en: 'Nose', es: 'Nariz' }, svgSrc: 'images/body-parts/nose.svg' },
+                                    { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/colors/orange.svg' },
+                                    { name: { en: 'Lemon', es: 'Limón' }, svgSrc: 'images/fruits/lemon.svg' },
+                                    { name: { en: 'Pineapple', es: 'Piña' }, svgSrc: 'images/fruits/pineapple.svg' },
+                                    { name: { en: 'Onion', es: 'Cebolla' }, svgSrc: 'images/vegetables/onion.svg' },
+                                    { name: { en: 'Nine', es: 'Nueve' }, svgSrc: 'images/numbers/nine.svg' },
+                                    { name: { en: 'One', es: 'Uno' }, svgSrc: 'images/numbers/one.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-l',
+                                name: 'L Sound',
+                                phonetic: '/l/',
+                                level: '⭐ Easy - Lateral',
+                                images: [
+                                    { name: { en: 'Lion', es: 'León' }, svgSrc: 'images/wild-animals/lion.svg' },
+                                    { name: { en: 'Elephant', es: 'Elefante' }, svgSrc: 'images/wild-animals/elephant.svg' },
+                                    { name: { en: 'Apple', es: 'Manzana' }, svgSrc: 'images/fruits/apple.svg' },
+                                    { name: { en: 'Yellow', es: 'Amarillo' }, svgSrc: 'images/colors/yellow.svg' },
+                                    { name: { en: 'Lettuce', es: 'Lechuga' }, svgSrc: 'images/vegetables/lettuce.svg' },
+                                    { name: { en: 'Lemon', es: 'Limón' }, svgSrc: 'images/fruits/lemon.svg' },
+                                    { name: { en: 'Blue', es: 'Azul' }, svgSrc: 'images/colors/blue.svg' },
+                                    { name: { en: 'Purple', es: 'Morado' }, svgSrc: 'images/colors/purple.svg' },
+                                    { name: { en: 'Violin', es: 'Violín' }, svgSrc: 'images/instruments/violin.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-h',
+                                name: 'H Sound',
+                                phonetic: '/h/',
+                                level: '⭐ Easy - Glottal',
+                                images: [
+                                    { name: { en: 'Hat', es: 'Sombrero' }, svgSrc: 'images/clothing/hat.svg' },
+                                    { name: { en: 'Horse', es: 'Caballo' }, svgSrc: 'images/farm-animals/horse.svg' },
+                                    { name: { en: 'Hand', es: 'Mano' }, svgSrc: 'images/body-parts/hand.svg' },
+                                    { name: { en: 'Heart', es: 'Corazón' }, svgSrc: 'images/shapes/heart.svg' },
+                                    { name: { en: 'Helicopter', es: 'Helicóptero' }, svgSrc: 'images/vehicles/helicopter.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-vowels',
+                                name: 'Vowel Sounds',
+                                phonetic: '/aɪ/ /i/ /ɪ/',
+                                level: '⭐ Easy - Vowels',
+                                images: [
+                                    { name: { en: 'Eye', es: 'Ojo' }, svgSrc: 'images/body-parts/eye.svg' },
+                                    { name: { en: 'Ear', es: 'Oreja' }, svgSrc: 'images/body-parts/ear.svg' },
+                                    { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/fruits/orange.svg' },
+                                    { name: { en: 'Apple', es: 'Manzana' }, svgSrc: 'images/fruits/apple.svg' },
+                                    { name: { en: 'Onion', es: 'Cebolla' }, svgSrc: 'images/vegetables/onion.svg' },
+                                    { name: { en: 'Airplane', es: 'Avión' }, svgSrc: 'images/vehicles/airplane.svg' },
+                                    { name: { en: 'Eight', es: 'Ocho' }, svgSrc: 'images/numbers/eight.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-p-b',
+                                name: 'P & B Sounds',
+                                phonetic: '/p/ /b/',
+                                level: '⭐⭐ Medium - Start Here',
+                                images: [
+                                    { name: { en: 'Pig', es: 'Cerdo' }, svgSrc: 'images/farm-animals/pig.svg' },
+                                    { name: { en: 'Bear', es: 'Oso' }, svgSrc: 'images/wild-animals/bear.svg' },
+                                    { name: { en: 'Banana', es: 'Plátano' }, svgSrc: 'images/fruits/banana.svg' },
+                                    { name: { en: 'Bed', es: 'Cama' }, svgSrc: 'images/household/bed.svg' },
+                                    { name: { en: 'Boat', es: 'Barco' }, svgSrc: 'images/vehicles/boat.svg' },
+                                    { name: { en: 'Broccoli', es: 'Brócoli' }, svgSrc: 'images/vegetables/broccoli.svg' },
+                                    { name: { en: 'Potato', es: 'Papa' }, svgSrc: 'images/vegetables/potato.svg' },
+                                    { name: { en: 'Pants', es: 'Pantalón' }, svgSrc: 'images/clothing/pants.svg' },
+                                    { name: { en: 'Purple', es: 'Morado' }, svgSrc: 'images/colors/purple.svg' },
+                                    { name: { en: 'Blue', es: 'Azul' }, svgSrc: 'images/colors/blue.svg' },
+                                    { name: { en: 'Bus', es: 'Autobús' }, svgSrc: 'images/vehicles/bus.svg' },
+                                    { name: { en: 'Airplane', es: 'Avión' }, svgSrc: 'images/vehicles/airplane.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-t-d',
+                                name: 'T & D Sounds',
+                                phonetic: '/t/ /d/',
+                                level: '⭐⭐ Medium - Front Stops',
+                                images: [
+                                    { name: { en: 'Tiger', es: 'Tigre' }, svgSrc: 'images/wild-animals/tiger.svg' },
+                                    { name: { en: 'Table', es: 'Mesa' }, svgSrc: 'images/household/table.svg' },
+                                    { name: { en: 'Tomato', es: 'Tomate' }, svgSrc: 'images/vegetables/tomato.svg' },
+                                    { name: { en: 'T-Shirt', es: 'Camiseta' }, svgSrc: 'images/clothing/tshirt.svg' },
+                                    { name: { en: 'Train', es: 'Tren' }, svgSrc: 'images/vehicles/train.svg' },
+                                    { name: { en: 'Tree', es: 'Árbol' }, svgSrc: 'images/nature/tree.svg' },
+                                    { name: { en: 'Duck', es: 'Pato' }, svgSrc: 'images/farm-animals/duck.svg' },
+                                    { name: { en: 'Door', es: 'Puerta' }, svgSrc: 'images/household/door.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-f-v',
+                                name: 'F & V Sounds',
+                                phonetic: '/f/ /v/',
+                                level: '⭐⭐ Medium - Fricatives',
+                                images: [
+                                    { name: { en: 'Flower', es: 'Flor' }, svgSrc: 'images/nature/flower.svg' },
+                                    { name: { en: 'Foot', es: 'Pie' }, svgSrc: 'images/body-parts/foot.svg' },
+                                    { name: { en: 'Five', es: 'Cinco' }, svgSrc: 'images/numbers/five.svg' },
+                                    { name: { en: 'Four', es: 'Cuatro' }, svgSrc: 'images/numbers/four.svg' },
+                                    { name: { en: 'Violin', es: 'Violín' }, svgSrc: 'images/instruments/violin.svg' },
+                                    { name: { en: 'Frog', es: 'Rana' }, svgSrc: 'images/wild-animals/frog.svg' },
+                                    { name: { en: 'Fox', es: 'Zorro' }, svgSrc: 'images/wild-animals/fox.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-k-g',
+                                name: 'K & G Sounds',
+                                phonetic: '/k/ /g/',
+                                level: '⭐⭐⭐ Hard - Back Stops',
+                                images: [
+                                    { name: { en: 'Cow', es: 'Vaca' }, svgSrc: 'images/farm-animals/cow.svg' },
+                                    { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg' },
+                                    { name: { en: 'Car', es: 'Coche' }, svgSrc: 'images/vehicles/car.svg' },
+                                    { name: { en: 'Cup', es: 'Taza' }, svgSrc: 'images/household/cup.svg' },
+                                    { name: { en: 'Carrot', es: 'Zanahoria' }, svgSrc: 'images/vegetables/carrot.svg' },
+                                    { name: { en: 'Corn', es: 'Maíz' }, svgSrc: 'images/vegetables/corn.svg' },
+                                    { name: { en: 'Cloud', es: 'Nube' }, svgSrc: 'images/nature/cloud.svg' },
+                                    { name: { en: 'Giraffe', es: 'Jirafa' }, svgSrc: 'images/wild-animals/giraffe.svg' },
+                                    { name: { en: 'Grapes', es: 'Uvas' }, svgSrc: 'images/fruits/grapes.svg' },
+                                    { name: { en: 'Green', es: 'Verde' }, svgSrc: 'images/colors/green.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-s-z',
+                                name: 'S & Z Sounds',
+                                phonetic: '/s/ /z/',
+                                level: '⭐⭐⭐ Hard - Sibilants',
+                                images: [
+                                    { name: { en: 'Sun', es: 'Sol' }, svgSrc: 'images/nature/sun.svg' },
+                                    { name: { en: 'Star', es: 'Estrella' }, svgSrc: 'images/nature/star.svg' },
+                                    { name: { en: 'Spoon', es: 'Cuchara' }, svgSrc: 'images/household/spoon.svg' },
+                                    { name: { en: 'Socks', es: 'Calcetines' }, svgSrc: 'images/clothing/socks.svg' },
+                                    { name: { en: 'Strawberry', es: 'Fresa' }, svgSrc: 'images/fruits/strawberry.svg' },
+                                    { name: { en: 'Zebra', es: 'Cebra' }, svgSrc: 'images/wild-animals/zebra.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-sh-ch',
+                                name: 'SH & CH Sounds',
+                                phonetic: '/ʃ/ /tʃ/',
+                                level: '⭐⭐⭐ Hard - Airflow',
+                                images: [
+                                    { name: { en: 'Shoes', es: 'Zapatos' }, svgSrc: 'images/clothing/shoes.svg' },
+                                    { name: { en: 'Shirt', es: 'Camiseta' }, svgSrc: 'images/clothing/tshirt.svg' },
+                                    { name: { en: 'Sheep', es: 'Oveja' }, svgSrc: 'images/farm-animals/sheep.svg' },
+                                    { name: { en: 'Chair', es: 'Silla' }, svgSrc: 'images/household/chair.svg' },
+                                    { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg' },
+                                    { name: { en: 'Cherries', es: 'Cerezas' }, svgSrc: 'images/fruits/cherries.svg' },
+                                    { name: { en: 'Peach', es: 'Durazno' }, svgSrc: 'images/fruits/peach.svg' },
+                                    { name: { en: 'Rainbow', es: 'Arcoíris' }, svgSrc: 'images/nature/rainbow.svg' },
+                                    { name: { en: 'Star', es: 'Estrella' }, svgSrc: 'images/shapes/star.svg' },
+                                    { name: { en: 'Heart', es: 'Corazón' }, svgSrc: 'images/shapes/heart.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-r',
+                                name: 'R Sound',
+                                phonetic: '/r/',
+                                level: '⭐⭐⭐ Hard - Complex',
+                                images: [
+                                    { name: { en: 'Red', es: 'Rojo' }, svgSrc: 'images/colors/red.svg' },
+                                    { name: { en: 'Rainbow', es: 'Arcoíris' }, svgSrc: 'images/nature/rainbow.svg' },
+                                    { name: { en: 'Rain', es: 'Lluvia' }, svgSrc: 'images/nature/rain.svg' },
+                                    { name: { en: 'Rocket', es: 'Cohete' }, svgSrc: 'images/vehicles/rocket.svg' },
+                                    { name: { en: 'Trumpet', es: 'Trompeta' }, svgSrc: 'images/instruments/trumpet.svg' },
+                                    { name: { en: 'Pear', es: 'Pera' }, svgSrc: 'images/fruits/pear.svg' },
+                                    { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/fruits/orange.svg' },
+                                    { name: { en: 'Bear', es: 'Oso' }, svgSrc: 'images/wild-animals/bear.svg' },
+                                    { name: { en: 'Star', es: 'Estrella' }, svgSrc: 'images/nature/star.svg' },
+                                    { name: { en: 'Carrot', es: 'Zanahoria' }, svgSrc: 'images/vegetables/carrot.svg' },
+                                ]
+                            },
+                        ],
+                        es: [
+                            {
+                                id: 'sound-m-n-es',
+                                name: 'Sonidos M y N',
+                                phonetic: '/m/ /n/',
+                                level: '⭐ Fácil - Nasales',
+                                images: [
+                                    { name: { en: 'Monkey', es: 'Mono' }, svgSrc: 'images/wild-animals/monkey.svg' },
+                                    { name: { en: 'Moon', es: 'Luna' }, svgSrc: 'images/nature/moon.svg' },
+                                    { name: { en: 'Hand', es: 'Mano' }, svgSrc: 'images/body-parts/hand.svg' },
+                                    { name: { en: 'Apple', es: 'Manzana' }, svgSrc: 'images/fruits/apple.svg' },
+                                    { name: { en: 'Table', es: 'Mesa' }, svgSrc: 'images/household/table.svg' },
+                                    { name: { en: 'Corn', es: 'Maíz' }, svgSrc: 'images/vegetables/corn.svg' },
+                                    { name: { en: 'Nose', es: 'Nariz' }, svgSrc: 'images/body-parts/nose.svg' },
+                                    { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/colors/orange.svg' },
+                                    { name: { en: 'Cloud', es: 'Nube' }, svgSrc: 'images/nature/cloud.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-l-es',
+                                name: 'Sonido L',
+                                phonetic: '/l/',
+                                level: '⭐ Fácil - Lateral',
+                                images: [
+                                    { name: { en: 'Lion', es: 'León' }, svgSrc: 'images/wild-animals/lion.svg' },
+                                    { name: { en: 'Elephant', es: 'Elefante' }, svgSrc: 'images/wild-animals/elephant.svg' },
+                                    { name: { en: 'Yellow', es: 'Amarillo' }, svgSrc: 'images/colors/yellow.svg' },
+                                    { name: { en: 'Blue', es: 'Azul' }, svgSrc: 'images/colors/blue.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-vowels-es',
+                                name: 'Vocales A, E, O, U',
+                                phonetic: '/a/ /e/ /o/ /u/',
+                                level: '⭐ Fácil - Vocales',
+                                images: [
+                                    { name: { en: 'Bear', es: 'Oso' }, svgSrc: 'images/wild-animals/bear.svg' },
+                                    { name: { en: 'Sheep', es: 'Oveja' }, svgSrc: 'images/farm-animals/sheep.svg' },
+                                    { name: { en: 'Tree', es: 'Árbol' }, svgSrc: 'images/nature/tree.svg' },
+                                    { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/fruits/orange.svg' },
+                                    { name: { en: 'Ear', es: 'Oreja' }, svgSrc: 'images/body-parts/ear.svg' },
+                                    { name: { en: 'Grapes', es: 'Uvas' }, svgSrc: 'images/fruits/grapes.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-p-b-es',
+                                name: 'Sonidos P y B',
+                                phonetic: '/p/ /b/',
+                                level: '⭐⭐ Medio - Empezar Aquí',
+                                images: [
+                                    { name: { en: 'Banana', es: 'Plátano' }, svgSrc: 'images/fruits/banana.svg' },
+                                    { name: { en: 'Potato', es: 'Papa' }, svgSrc: 'images/vegetables/potato.svg' },
+                                    { name: { en: 'Pants', es: 'Pantalón' }, svgSrc: 'images/clothing/pants.svg' },
+                                    { name: { en: 'Door', es: 'Puerta' }, svgSrc: 'images/household/door.svg' },
+                                    { name: { en: 'Duck', es: 'Pato' }, svgSrc: 'images/farm-animals/duck.svg' },
+                                    { name: { en: 'Foot', es: 'Pie' }, svgSrc: 'images/body-parts/foot.svg' },
+                                    { name: { en: 'Boat', es: 'Barco' }, svgSrc: 'images/vehicles/boat.svg' },
+                                    { name: { en: 'Broccoli', es: 'Brócoli' }, svgSrc: 'images/vegetables/broccoli.svg' },
+                                    { name: { en: 'Mouth', es: 'Boca' }, svgSrc: 'images/body-parts/mouth.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-t-d-es',
+                                name: 'Sonidos T y D',
+                                phonetic: '/t/ /d/',
+                                level: '⭐⭐ Oclusivas Frontales',
+                                images: [
+                                    { name: { en: 'Tiger', es: 'Tigre' }, svgSrc: 'images/wild-animals/tiger.svg' },
+                                    { name: { en: 'Tomato', es: 'Tomate' }, svgSrc: 'images/vegetables/tomato.svg' },
+                                    { name: { en: 'Cup', es: 'Taza' }, svgSrc: 'images/household/cup.svg' },
+                                    { name: { en: 'Train', es: 'Tren' }, svgSrc: 'images/vehicles/train.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-k-g-es',
+                                name: 'Sonidos C/K y G',
+                                phonetic: '/k/ /g/',
+                                level: '⭐⭐⭐ Oclusivas Velares',
+                                images: [
+                                    { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg' },
+                                    { name: { en: 'Car', es: 'Coche' }, svgSrc: 'images/vehicles/car.svg' },
+                                    { name: { en: 'Truck', es: 'Camión' }, svgSrc: 'images/vehicles/truck.svg' },
+                                    { name: { en: 'Bed', es: 'Cama' }, svgSrc: 'images/household/bed.svg' },
+                                    { name: { en: 'Socks', es: 'Calcetines' }, svgSrc: 'images/clothing/socks.svg' },
+                                    { name: { en: 'T-Shirt', es: 'Camiseta' }, svgSrc: 'images/clothing/tshirt.svg' },
+                                    { name: { en: 'Spoon', es: 'Cuchara' }, svgSrc: 'images/household/spoon.svg' },
+                                    { name: { en: 'Horse', es: 'Caballo' }, svgSrc: 'images/farm-animals/horse.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-v-es',
+                                name: 'Sonido V (como B)',
+                                phonetic: '/b/',
+                                level: '⭐⭐ V se pronuncia como B',
+                                images: [
+                                    { name: { en: 'Cow', es: 'Vaca' }, svgSrc: 'images/farm-animals/cow.svg' },
+                                    { name: { en: 'Green', es: 'Verde' }, svgSrc: 'images/colors/green.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-f-es',
+                                name: 'Sonido F',
+                                phonetic: '/f/',
+                                level: '⭐⭐ Fricativa Visual',
+                                images: [
+                                    { name: { en: 'Flower', es: 'Flor' }, svgSrc: 'images/nature/flower.svg' },
+                                    { name: { en: 'Strawberry', es: 'Fresa' }, svgSrc: 'images/fruits/strawberry.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-s-z-c-es',
+                                name: 'Sonidos S, Z, C (ce/ci)',
+                                phonetic: '/s/ /θ/',
+                                level: '⭐⭐⭐ Sibilantes - Desafiante',
+                                images: [
+                                    { name: { en: 'Sun', es: 'Sol' }, svgSrc: 'images/nature/sun.svg' },
+                                    { name: { en: 'Watermelon', es: 'Sandía' }, svgSrc: 'images/fruits/watermelon.svg' },
+                                    { name: { en: 'Chair', es: 'Silla' }, svgSrc: 'images/household/chair.svg' },
+                                    { name: { en: 'Zebra', es: 'Cebra' }, svgSrc: 'images/wild-animals/zebra.svg' },
+                                    { name: { en: 'Pig', es: 'Cerdo' }, svgSrc: 'images/farm-animals/pig.svg' },
+                                    { name: { en: 'Carrot', es: 'Zanahoria' }, svgSrc: 'images/vegetables/carrot.svg' },
+                                    { name: { en: 'Hat', es: 'Sombrero' }, svgSrc: 'images/clothing/hat.svg' },
+                                    { name: { en: 'Shoes', es: 'Zapatos' }, svgSrc: 'images/clothing/shoes.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-j-es',
+                                name: 'Sonido J/G (ge/gi)',
+                                phonetic: '/x/',
+                                level: '⭐⭐ Fricativa Velar',
+                                images: [
+                                    { name: { en: 'Giraffe', es: 'Jirafa' }, svgSrc: 'images/wild-animals/giraffe.svg' },
+                                    { name: { en: 'Eye', es: 'Ojo' }, svgSrc: 'images/body-parts/eye.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-r-es',
+                                name: 'Sonido R',
+                                phonetic: '/r/',
+                                level: '⭐⭐ Vibrante Simple',
+                                images: [
+                                    { name: { en: 'Red', es: 'Rojo' }, svgSrc: 'images/colors/red.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-ll-y-es',
+                                name: 'Sonidos LL/Y',
+                                phonetic: '/ʝ/ /ʎ/',
+                                level: '⭐⭐ Lateral Palatal',
+                                images: [
+                                    { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg' },
+                                    { name: { en: 'Horse', es: 'Caballo' }, svgSrc: 'images/farm-animals/horse.svg' },
+                                    { name: { en: 'Yellow', es: 'Amarillo' }, svgSrc: 'images/colors/yellow.svg' },
+                                ]
+                            },
+                        ]
+                    },
+                    categories: [
+                        {
+                            id: 'farm-animals',
+                            name: { en: 'Farm Animals', es: 'Animales de Granja' },
+                            emoji: '🐄',
+                            images: [
+                                { name: { en: 'Cow', es: 'Vaca' }, svgSrc: 'images/farm-animals/cow.svg' },
+                                { name: { en: 'Pig', es: 'Cerdo' }, svgSrc: 'images/farm-animals/pig.svg' },
+                                { name: { en: 'Sheep', es: 'Oveja' }, svgSrc: 'images/farm-animals/sheep.svg' },
+                                { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg' },
+                                { name: { en: 'Horse', es: 'Caballo' }, svgSrc: 'images/farm-animals/horse.svg' },
+                                { name: { en: 'Duck', es: 'Pato' }, svgSrc: 'images/farm-animals/duck.svg' },
+                            ]
+                        },
+                        {
+                            id: 'household',
+                            name: { en: 'House Items', es: 'Cosas de Casa' },
+                            emoji: '🪑',
+                            images: [
+                                { name: { en: 'Chair', es: 'Silla' }, svgSrc: 'images/household/chair.svg' },
+                                { name: { en: 'Table', es: 'Mesa' }, svgSrc: 'images/household/table.svg' },
+                                { name: { en: 'Spoon', es: 'Cuchara' }, svgSrc: 'images/household/spoon.svg' },
+                                { name: { en: 'Cup', es: 'Taza' }, svgSrc: 'images/household/cup.svg' },
+                                { name: { en: 'Bed', es: 'Cama' }, svgSrc: 'images/household/bed.svg' },
+                                { name: { en: 'Door', es: 'Puerta' }, svgSrc: 'images/household/door.svg' },
+                                { name: { en: 'Window', es: 'Ventana' }, svgSrc: 'images/household/window.svg' },
+                                { name: { en: 'Book', es: 'Libro' }, svgSrc: 'images/household/book.svg' },
+                            ]
+                        },
+                        {
+                            id: 'clothing',
+                            name: { en: 'Clothes', es: 'Ropa' },
+                            emoji: '👕',
+                            images: [
+                                { name: { en: 'T-Shirt', es: 'Camiseta' }, svgSrc: 'images/clothing/tshirt.svg' },
+                                { name: { en: 'Pants', es: 'Pantalón' }, svgSrc: 'images/clothing/pants.svg' },
+                                { name: { en: 'Shoes', es: 'Zapatos' }, svgSrc: 'images/clothing/shoes.svg' },
+                                { name: { en: 'Hat', es: 'Sombrero' }, svgSrc: 'images/clothing/hat.svg' },
+                                { name: { en: 'Socks', es: 'Calcetines' }, svgSrc: 'images/clothing/socks.svg' },
+                                { name: { en: 'Jacket', es: 'Chaqueta' }, svgSrc: 'images/clothing/jacket.svg' },
+                                { name: { en: 'Dress', es: 'Vestido' }, svgSrc: 'images/clothing/dress.svg' },
+                                { name: { en: 'Gloves', es: 'Guantes' }, svgSrc: 'images/clothing/gloves.svg' },
+                            ]
+                        },
+                        {
+                            id: 'colors',
+                            name: { en: 'Colors', es: 'Colores' },
+                            emoji: '🌈',
+                            images: [
+                                { name: { en: 'Red', es: 'Rojo' }, svgSrc: 'images/colors/red.svg' },
+                                { name: { en: 'Blue', es: 'Azul' }, svgSrc: 'images/colors/blue.svg' },
+                                { name: { en: 'Yellow', es: 'Amarillo' }, svgSrc: 'images/colors/yellow.svg' },
+                                { name: { en: 'Green', es: 'Verde' }, svgSrc: 'images/colors/green.svg' },
+                                { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/colors/orange.svg' },
+                                { name: { en: 'Purple', es: 'Morado' }, svgSrc: 'images/colors/purple.svg' },
+                            ]
+                        },
+                        {
+                            id: 'wild-animals',
+                            name: { en: 'Wild Animals', es: 'Animales Salvajes' },
+                            emoji: '🦁',
+                            images: [
+                                { name: { en: 'Lion', es: 'León' }, svgSrc: 'images/wild-animals/lion.svg' },
+                                { name: { en: 'Elephant', es: 'Elefante' }, svgSrc: 'images/wild-animals/elephant.svg' },
+                                { name: { en: 'Monkey', es: 'Mono' }, svgSrc: 'images/wild-animals/monkey.svg' },
+                                { name: { en: 'Giraffe', es: 'Jirafa' }, svgSrc: 'images/wild-animals/giraffe.svg' },
+                                { name: { en: 'Bear', es: 'Oso' }, svgSrc: 'images/wild-animals/bear.svg' },
+                                { name: { en: 'Tiger', es: 'Tigre' }, svgSrc: 'images/wild-animals/tiger.svg' },
+                                { name: { en: 'Zebra', es: 'Cebra' }, svgSrc: 'images/wild-animals/zebra.svg' },
+                                { name: { en: 'Fox', es: 'Zorro' }, svgSrc: 'images/wild-animals/fox.svg' },
+                                { name: { en: 'Owl', es: 'Búho' }, svgSrc: 'images/wild-animals/owl.svg' },
+                                { name: { en: 'Frog', es: 'Rana' }, svgSrc: 'images/wild-animals/frog.svg' },
+                            ]
+                        },
+                        {
+                            id: 'fruits',
+                            name: { en: 'Fruits', es: 'Frutas' },
+                            emoji: '🍎',
+                            images: [
+                                { name: { en: 'Apple', es: 'Manzana' }, svgSrc: 'images/fruits/apple.svg' },
+                                { name: { en: 'Banana', es: 'Plátano' }, svgSrc: 'images/fruits/banana.svg' },
+                                { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/fruits/orange.svg' },
+                                { name: { en: 'Strawberry', es: 'Fresa' }, svgSrc: 'images/fruits/strawberry.svg' },
+                                { name: { en: 'Grapes', es: 'Uvas' }, svgSrc: 'images/fruits/grapes.svg' },
+                                { name: { en: 'Watermelon', es: 'Sandía' }, svgSrc: 'images/fruits/watermelon.svg' },
+                                { name: { en: 'Pear', es: 'Pera' }, svgSrc: 'images/fruits/pear.svg' },
+                                { name: { en: 'Peach', es: 'Durazno' }, svgSrc: 'images/fruits/peach.svg' },
+                                { name: { en: 'Cherries', es: 'Cerezas' }, svgSrc: 'images/fruits/cherries.svg' },
+                                { name: { en: 'Lemon', es: 'Limón' }, svgSrc: 'images/fruits/lemon.svg' },
+                                { name: { en: 'Pineapple', es: 'Piña' }, svgSrc: 'images/fruits/pineapple.svg' },
+                                { name: { en: 'Kiwi', es: 'Kiwi' }, svgSrc: 'images/fruits/kiwi.svg' },
+                            ]
+                        },
+                        {
+                            id: 'vegetables',
+                            name: { en: 'Vegetables', es: 'Verduras' },
+                            emoji: '🥕',
+                            images: [
+                                { name: { en: 'Carrot', es: 'Zanahoria' }, svgSrc: 'images/vegetables/carrot.svg' },
+                                { name: { en: 'Tomato', es: 'Tomate' }, svgSrc: 'images/vegetables/tomato.svg' },
+                                { name: { en: 'Broccoli', es: 'Brócoli' }, svgSrc: 'images/vegetables/broccoli.svg' },
+                                { name: { en: 'Corn', es: 'Maíz' }, svgSrc: 'images/vegetables/corn.svg' },
+                                { name: { en: 'Potato', es: 'Papa' }, svgSrc: 'images/vegetables/potato.svg' },
+                                { name: { en: 'Lettuce', es: 'Lechuga' }, svgSrc: 'images/vegetables/lettuce.svg' },
+                                { name: { en: 'Cucumber', es: 'Pepino' }, svgSrc: 'images/vegetables/cucumber.svg' },
+                                { name: { en: 'Pepper', es: 'Pimiento' }, svgSrc: 'images/vegetables/pepper.svg' },
+                                { name: { en: 'Onion', es: 'Cebolla' }, svgSrc: 'images/vegetables/onion.svg' },
+                            ]
+                        },
+                        {
+                            id: 'vehicles',
+                            name: { en: 'Vehicles', es: 'Vehículos' },
+                            emoji: '🚗',
+                            images: [
+                                { name: { en: 'Car', es: 'Coche' }, svgSrc: 'images/vehicles/car.svg' },
+                                { name: { en: 'Bus', es: 'Autobús' }, svgSrc: 'images/vehicles/bus.svg' },
+                                { name: { en: 'Truck', es: 'Camión' }, svgSrc: 'images/vehicles/truck.svg' },
+                                { name: { en: 'Airplane', es: 'Avión' }, svgSrc: 'images/vehicles/airplane.svg' },
+                                { name: { en: 'Boat', es: 'Barco' }, svgSrc: 'images/vehicles/boat.svg' },
+                                { name: { en: 'Train', es: 'Tren' }, svgSrc: 'images/vehicles/train.svg' },
+                                { name: { en: 'Bicycle', es: 'Bicicleta' }, svgSrc: 'images/vehicles/bicycle.svg' },
+                                { name: { en: 'Helicopter', es: 'Helicóptero' }, svgSrc: 'images/vehicles/helicopter.svg' },
+                                { name: { en: 'Rocket', es: 'Cohete' }, svgSrc: 'images/vehicles/rocket.svg' },
+                            ]
+                        },
+                        {
+                            id: 'body-parts',
+                            name: { en: 'Body Parts', es: 'Partes del Cuerpo' },
+                            emoji: '👋',
+                            images: [
+                                { name: { en: 'Hand', es: 'Mano' }, svgSrc: 'images/body-parts/hand.svg' },
+                                { name: { en: 'Foot', es: 'Pie' }, svgSrc: 'images/body-parts/foot.svg' },
+                                { name: { en: 'Eye', es: 'Ojo' }, svgSrc: 'images/body-parts/eye.svg' },
+                                { name: { en: 'Nose', es: 'Nariz' }, svgSrc: 'images/body-parts/nose.svg' },
+                                { name: { en: 'Mouth', es: 'Boca' }, svgSrc: 'images/body-parts/mouth.svg' },
+                                { name: { en: 'Ear', es: 'Oreja' }, svgSrc: 'images/body-parts/ear.svg' },
+                            ]
+                        },
+                        {
+                            id: 'nature',
+                            name: { en: 'Nature', es: 'Naturaleza' },
+                            emoji: '☀️',
+                            images: [
+                                { name: { en: 'Sun', es: 'Sol' }, svgSrc: 'images/nature/sun.svg' },
+                                { name: { en: 'Moon', es: 'Luna' }, svgSrc: 'images/nature/moon.svg' },
+                                { name: { en: 'Star', es: 'Estrella' }, svgSrc: 'images/nature/star.svg' },
+                                { name: { en: 'Tree', es: 'Árbol' }, svgSrc: 'images/nature/tree.svg' },
+                                { name: { en: 'Flower', es: 'Flor' }, svgSrc: 'images/nature/flower.svg' },
+                                { name: { en: 'Cloud', es: 'Nube' }, svgSrc: 'images/nature/cloud.svg' },
+                                { name: { en: 'Rain', es: 'Lluvia' }, svgSrc: 'images/nature/rain.svg' },
+                                { name: { en: 'Rainbow', es: 'Arcoíris' }, svgSrc: 'images/nature/rainbow.svg' },
+                            ]
+                        },
+                        {
+                            id: 'shapes',
+                            name: { en: 'Shapes', es: 'Formas' },
+                            emoji: '⭐',
+                            images: [
+                                { name: { en: 'Circle', es: 'Círculo' }, svgSrc: 'images/shapes/circle.svg' },
+                                { name: { en: 'Square', es: 'Cuadrado' }, svgSrc: 'images/shapes/square.svg' },
+                                { name: { en: 'Triangle', es: 'Triángulo' }, svgSrc: 'images/shapes/triangle.svg' },
+                                { name: { en: 'Star', es: 'Estrella' }, svgSrc: 'images/shapes/star.svg' },
+                                { name: { en: 'Heart', es: 'Corazón' }, svgSrc: 'images/shapes/heart.svg' },
+                                { name: { en: 'Diamond', es: 'Diamante' }, svgSrc: 'images/shapes/diamond.svg' },
+                            ]
+                        },
+                        {
+                            id: 'numbers',
+                            name: { en: 'Numbers', es: 'Números' },
+                            emoji: '🔢',
+                            images: [
+                                { name: { en: 'One', es: 'Uno' }, svgSrc: 'images/numbers/one.svg' },
+                                { name: { en: 'Two', es: 'Dos' }, svgSrc: 'images/numbers/two.svg' },
+                                { name: { en: 'Three', es: 'Tres' }, svgSrc: 'images/numbers/three.svg' },
+                                { name: { en: 'Four', es: 'Cuatro' }, svgSrc: 'images/numbers/four.svg' },
+                                { name: { en: 'Five', es: 'Cinco' }, svgSrc: 'images/numbers/five.svg' },
+                                { name: { en: 'Six', es: 'Seis' }, svgSrc: 'images/numbers/six.svg' },
+                                { name: { en: 'Seven', es: 'Siete' }, svgSrc: 'images/numbers/seven.svg' },
+                                { name: { en: 'Eight', es: 'Ocho' }, svgSrc: 'images/numbers/eight.svg' },
+                                { name: { en: 'Nine', es: 'Nueve' }, svgSrc: 'images/numbers/nine.svg' },
+                                { name: { en: 'Ten', es: 'Diez' }, svgSrc: 'images/numbers/ten.svg' },
+                            ]
+                        },
+                        {
+                            id: 'instruments',
+                            name: { en: 'Musical Instruments', es: 'Instrumentos Musicales' },
+                            emoji: '🎸',
+                            images: [
+                                { name: { en: 'Guitar', es: 'Guitarra' }, svgSrc: 'images/instruments/guitar.svg' },
+                                { name: { en: 'Piano', es: 'Piano' }, svgSrc: 'images/instruments/piano.svg' },
+                                { name: { en: 'Drum', es: 'Tambor' }, svgSrc: 'images/instruments/drum.svg' },
+                                { name: { en: 'Trumpet', es: 'Trompeta' }, svgSrc: 'images/instruments/trumpet.svg' },
+                                { name: { en: 'Violin', es: 'Violín' }, svgSrc: 'images/instruments/violin.svg' },
+                                { name: { en: 'Saxophone', es: 'Saxofón' }, svgSrc: 'images/instruments/saxophone.svg' },
+                            ]
+                        }
+                    ]
+                };
+            },
+            computed: {
+                t() {
+                    return this.translations[this.currentLang];
+                },
+                currentCategoryImages() {
+                    return this.selectedCategory ? this.selectedCategory.images : [];
+                },
+                currentImage() {
+                    return this.currentCategoryImages[this.currentIndex] || {};
+                },
+                selectedCategoryData() {
+                    return this.selectedCategory || {};
+                }
+            },
+            methods: {
+                switchLanguage(lang) {
+                    this.currentLang = lang;
+                    localStorage.setItem('firstwords-lang', lang);
+                    this.selectedCategory = null; // Go back to main menu when language changes
+                },
+                switchView(view) {
+                    this.viewMode = view;
+                    localStorage.setItem('firstwords-viewmode', view);
+                    this.selectedCategory = null; // Reset category when switching views
+                },
+                selectCategory(category) {
+                    this.selectedCategory = category;
+                    this.currentIndex = 0;
+                },
+                goBack() {
+                    this.selectedCategory = null;
+                    this.currentIndex = 0;
+                },
+                nextImage() {
+                    if (this.currentIndex < this.currentCategoryImages.length - 1) {
+                        this.currentIndex++;
+                    } else {
+                        this.currentIndex = 0; // Loop back to start
+                    }
+                },
+                previousImage() {
+                    if (this.currentIndex > 0) {
+                        this.currentIndex--;
+                    } else {
+                        this.currentIndex = this.currentCategoryImages.length - 1; // Loop to end
+                    }
+                },
+                randomizeImages() {
+                    // Jump to a random position (different from current)
+                    let newIndex;
+                    do {
+                        newIndex = Math.floor(Math.random() * this.currentCategoryImages.length);
+                    } while (newIndex === this.currentIndex && this.currentCategoryImages.length > 1);
+                    this.currentIndex = newIndex;
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
