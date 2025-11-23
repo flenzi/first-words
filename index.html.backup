@@ -430,7 +430,6 @@
 
                 <div class="navigation">
                     <button @click="previousImage" class="nav-btn">◀️</button>
-                    <button @click="randomizeImages" class="nav-btn" title="Shuffle">🔀</button>
                     <div class="counter">{{ currentIndex + 1 }} / {{ currentCategoryImages.length }}</div>
                     <button @click="nextImage" class="nav-btn">▶️</button>
                 </div>
@@ -900,19 +899,6 @@
                                 { name: { en: 'Flower', es: 'Flor' }, svgSrc: 'images/nature/flower.svg', photoSrc: 'images/photos/nature/flower.jpg', credit: 'Placeholder' },
                                 { name: { en: 'Cloud', es: 'Nube' }, svgSrc: 'images/nature/cloud.svg', photoSrc: 'images/photos/nature/cloud.jpg', credit: 'Placeholder' },
                             ]
-                        },
-                        {
-                            id: 'cartoons',
-                            name: { en: 'Cartoons', es: 'Dibujos Animados' },
-                            emoji: '📺',
-                            images: [
-                                { name: { en: 'Bluey', es: 'Bluey' }, svgSrc: 'images/cartoons/bluey.svg', photoSrc: 'images/photos/cartoons/bluey.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Bingo', es: 'Bingo' }, svgSrc: 'images/cartoons/bingo.svg', photoSrc: 'images/photos/cartoons/bingo.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Peppa Pig', es: 'Peppa Pig' }, svgSrc: 'images/cartoons/peppa.svg', photoSrc: 'images/photos/cartoons/peppa.jpg', credit: 'Placeholder' },
-                                { name: { en: 'George', es: 'George' }, svgSrc: 'images/cartoons/george.svg', photoSrc: 'images/photos/cartoons/george.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Mario', es: 'Mario' }, svgSrc: 'images/cartoons/mario.svg', photoSrc: 'images/photos/cartoons/mario.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Hello Kitty', es: 'Hello Kitty' }, svgSrc: 'images/cartoons/hellokitty.svg', photoSrc: 'images/photos/cartoons/hellokitty.jpg', credit: 'Placeholder' },
-                            ]
                         }
                     ]
                 };
@@ -960,20 +946,6 @@
                     } else {
                         this.currentIndex = this.currentCategoryImages.length - 1; // Loop to end
                     }
-                },
-                randomizeImages() {
-                    // Create a shuffled copy of the images array using Fisher-Yates algorithm
-                    const images = [...this.selectedCategory.images];
-                    for (let i = images.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [images[i], images[j]] = [images[j], images[i]];
-                    }
-                    // Create a new category object with shuffled images to maintain reactivity
-                    this.selectedCategory = {
-                        ...this.selectedCategory,
-                        images: images
-                    };
-                    this.currentIndex = 0;
                 }
             }
         }).mount('#app');
