@@ -114,6 +114,7 @@
 
         .footer-section .lang-toggle {
             margin-top: 8px;
+            align-self: flex-start;
         }
 
         .footer-section h3 {
