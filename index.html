@@ -36,10 +36,29 @@
 
         .controls-row {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin-bottom: 20px;
-            gap: 15px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 50px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
@@ -51,15 +70,17 @@
             border-radius: 50px;
         }
 
-        .view-toggle {
-            display: flex;
-            gap: 8px;
-            background: rgba(255,255,255,0.2);
-            padding: 8px;
-            border-radius: 50px;
-            flex: 1;
-            justify-content: center;
-            max-width: 400px;
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            text-decoration: underline;
         }
 
         .lang-btn, .view-btn {
@@ -260,24 +281,25 @@
                 margin-bottom: 20px;
             }
 
-            .controls-row {
+            .view-toggle {
+                padding: 6px;
+                gap: 6px;
+            }
+
+            .footer {
                 flex-direction: column;
-                gap: 10px;
-                margin-bottom: 15px;
+                gap: 15px;
+                padding: 15px;
+                margin-top: 30px;
             }
 
             .lang-toggle {
                 padding: 6px;
                 gap: 6px;
-                order: 1;
             }
 
-            .view-toggle {
-                width: 100%;
-                max-width: 100%;
-                padding: 6px;
-                gap: 6px;
-                order: 2;
+            .footer-link {
+                font-size: 0.8rem;
             }
 
             .lang-btn, .view-btn {
@@ -383,20 +405,6 @@
         <!-- Header Container -->
         <div class="header-container">
             <div class="controls-row">
-                <!-- Language Toggle -->
-                <div class="lang-toggle">
-                    <button
-                        @click="switchLanguage('en')"
-                        :class="{ 'lang-btn': true, 'active': currentLang === 'en' }">
-                        EN
-                    </button>
-                    <button
-                        @click="switchLanguage('es')"
-                        :class="{ 'lang-btn': true, 'active': currentLang === 'es' }">
-                        ES
-                    </button>
-                </div>
-
                 <!-- View Toggle -->
                 <div class="view-toggle">
                     <button
@@ -459,6 +467,25 @@
                     <button @click="nextImage" class="nav-btn">▶️</button>
                 </div>
             </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="lang-toggle">
+                <button
+                    @click="switchLanguage('en')"
+                    :class="{ 'lang-btn': true, 'active': currentLang === 'en' }">
+                    EN
+                </button>
+                <button
+                    @click="switchLanguage('es')"
+                    :class="{ 'lang-btn': true, 'active': currentLang === 'es' }">
+                    ES
+                </button>
+            </div>
+            <a href="https://github.com/flenzi/first-words" target="_blank" class="footer-link">
+                GitHub Repository
+            </a>
         </div>
 
     </div>
