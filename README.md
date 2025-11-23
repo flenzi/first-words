@@ -1,172 +1,194 @@
 # 🌟 First Words - Kids Learning App
 
-A playful, interactive web app to help toddlers (ages 2-3) learn their first words through images of animals, household items, clothing, and colors.
+A playful, interactive bilingual web app to help toddlers (ages 2-3) learn their first words through colorful emoji-based images.
 
 ## ✨ Features
 
-- **Bilingual Support (English/Spanish):**
-  - Toggle between English and Spanish with one click
-  - EN/ES buttons in top-right corner
-  - Language preference saved automatically
-  - All categories and words translated
-  - Images have no text - work in any language!
+### **Bilingual Support (English/Spanish)**
+- Toggle between English and Spanish with one click
+- Language switcher in footer (EN/ES buttons)
+- Language preference saved automatically
+- All categories and words fully translated
+- Emoji-based images work in any language!
 
-- **4 Learning Categories:**
-  - 🐄 Farm Animals / Animales de Granja (cow, pig, sheep, chicken, horse, duck)
-  - 🪑 House Items / Cosas de Casa (chair, table, spoon, cup, bed, door)
-  - 👕 Clothes / Ropa (t-shirt, pants, shoes, hat, socks)
-  - 🌈 Colors / Colores (red, blue, yellow, green, orange, purple)
+### **Two Learning Modes**
 
-- **Child-Friendly Interface:**
-  - Large, colorful buttons
-  - Playful animations
-  - Easy navigation with arrow buttons
-  - Large text displaying word names
-  - Responsive design for tablets and phones
+#### 📚 Categories Mode (10 Categories)
+- 🍎 **Fruits / Frutas** (12 items): Apple, Banana, Orange, Strawberry, Watermelon, Grapes, Pear, Peach, Cherries, Lemon, Pineapple, Kiwi
+- 🥕 **Vegetables / Verduras** (9 items): Carrot, Broccoli, Tomato, Potato, Corn, Lettuce, Cucumber, Pepper, Onion
+- 🐄 **Farm Animals / Animales de Granja** (6 items): Cow, Pig, Sheep, Chicken, Horse, Duck
+- 🦁 **Wild Animals / Animales Salvajes** (10 items): Lion, Elephant, Zebra, Giraffe, Monkey, Tiger, Bear, Fox, Owl, Frog
+- 🚗 **Vehicles / Vehículos** (9 items): Car, Train, Bus, Airplane, Truck, Boat, Bicycle, Helicopter, Rocket
+- 👕 **Clothing / Ropa** (8 items): T-shirt, Pants, Shoes, Hat, Socks, Jacket, Dress, Gloves
+- 🪑 **Household / Casa** (8 items): Chair, Table, Spoon, Cup, Bed, Door, Window, Book
+- 👁️ **Body Parts / Partes del Cuerpo** (6 items): Hand, Eye, Foot, Ear, Mouth, Nose
+- ☀️ **Nature / Naturaleza** (8 items): Sun, Moon, Star, Tree, Flower, Cloud, Rain, Rainbow
+- 🌈 **Colors / Colores** (6 items): Red, Blue, Yellow, Green, Orange, Purple
 
-- **Simple Navigation:**
-  - Select a category
-  - Use arrow buttons to go next/previous
-  - Counter shows progress (e.g., "3 / 6")
-  - Loop back to start automatically
+#### 🗣️ Speech Therapy Mode
+Phonetically organized categories by difficulty for speech development:
+
+**⭐ Easy Sounds**
+- M & N Sounds (Nasal Sounds)
+- L Sound (Lateral)
+- H Sound (Glottal)
+- Vowel Sounds (A, E, I, O, U)
+
+**⭐⭐ Medium Sounds**
+- P & B Sounds (Bilabial Stops)
+- T & D Sounds (Front Stops)
+- F & V Sounds (Fricatives)
+
+**⭐⭐⭐ Hard Sounds**
+- K & G Sounds (Back Stops)
+- S & Z Sounds (Sibilants)
+- SH & CH Sounds (Airflow)
+- R Sound (Complex)
+
+### **Interactive Features**
+- **Category & Item Titles**: Clear labels showing category and item name above each image
+- **Random Shuffle Button** (🔀): Jump to a random image in the current category
+- **Navigation Controls**: Large arrow buttons to move next/previous
+- **Progress Counter**: Shows current position (e.g., "3 / 12")
+- **Back Button**: Return to category selection anytime
+
+### **Design & UX**
+- **Clean White Backgrounds**: All cards have white backgrounds (except color cards which display their respective colors)
+- **Large Emoji Images**: Colorful, universally recognizable 280px emojis
+- **Responsive Design**: Optimized for phones, tablets, and desktops
+- **Mobile-Optimized Fonts**: System font stack for consistent rendering across all devices
+- **Glassmorphism UI**: Modern frosted glass effects for header and footer
+- **Smooth Animations**: Playful transitions and hover effects
+
+### **Footer**
+- Language toggle (EN/ES)
+- Link to GitHub repository
 
 ## 🚀 Getting Started
 
-### Option 1: Use the App Directly
-Simply open `index.html` in a web browser!
+### Open Locally
+Simply open `index.html` in a web browser - no server required!
 
-### Option 2: GitHub Pages
-This app is designed to be hosted on GitHub Pages. Once you push to your repository:
+### GitHub Pages
+Host this app on GitHub Pages:
 
-1. Go to your repository Settings
-2. Navigate to "Pages" section
+1. Go to your repository **Settings**
+2. Navigate to **Pages** section
 3. Select branch: `main` (or your preferred branch)
 4. Select folder: `/ (root)`
-5. Click Save
+5. Click **Save**
 6. Your app will be available at: `https://yourusername.github.io/first-words/`
 
-## 📸 Adding Images
+## 🎨 Technical Details
 
-### Image Requirements
-- Format: JPG or PNG
-- Size: Recommended 800x800px to 1200x1200px
-- Quality: High quality, clear, child-friendly images
-- License: CC0 (Creative Commons Zero) - free to use
+### Technology Stack
+- **Vue 3** (CDN): Reactive framework for interactive UI
+- **Pure HTML/CSS/JS**: Single-file application, no build process
+- **SVG Images**: Scalable emoji graphics with gradient backgrounds
+- **localStorage**: Persists language and view mode preferences
 
-### Recommended Free Image Sources
-
-#### Unsplash (CC0 License)
-Website: https://unsplash.com
-- Search for each item (e.g., "cow", "red apple", "blue sky")
-- Download high-resolution images
-- No attribution required, but we credit them in our CREDITS.md
-
-#### Pexels (Free to use)
-Website: https://pexels.com
-- Similar to Unsplash
-- High-quality, free images
-- Simple license
-
-### Image Organization
-
-Place images in the following folders with these exact filenames:
-
+### File Structure
 ```
-images/
-├── farm-animals/
-│   ├── cow.jpg
-│   ├── pig.jpg
-│   ├── sheep.jpg
-│   ├── chicken.jpg
-│   ├── horse.jpg
-│   └── duck.jpg
-├── household/
-│   ├── chair.jpg
-│   ├── table.jpg
-│   ├── spoon.jpg
-│   ├── cup.jpg
-│   ├── bed.jpg
-│   └── door.jpg
-├── clothing/
-│   ├── tshirt.jpg
-│   ├── pants.jpg
-│   ├── shoes.jpg
-│   ├── hat.jpg
-│   └── socks.jpg
-└── colors/
-    ├── red.jpg      (e.g., red apple, red balloon)
-    ├── blue.jpg     (e.g., blue sky, blue ball)
-    ├── yellow.jpg   (e.g., yellow sun, banana)
-    ├── green.jpg    (e.g., green grass, leaf)
-    ├── orange.jpg   (e.g., orange fruit, pumpkin)
-    └── purple.jpg   (e.g., purple flower, grapes)
+first-words/
+├── index.html              # Main app file (HTML + CSS + Vue.js)
+├── README.md              # Documentation
+└── images/                # SVG image files
+    ├── fruits/            # 12 fruit SVGs
+    ├── vegetables/        # 9 vegetable SVGs
+    ├── farm-animals/      # 6 farm animal SVGs
+    ├── wild-animals/      # 10 wild animal SVGs
+    ├── vehicles/          # 9 vehicle SVGs
+    ├── clothing/          # 8 clothing SVGs
+    ├── household/         # 8 household SVGs
+    ├── body-parts/        # 6 body part SVGs
+    ├── nature/            # 8 nature SVGs
+    └── colors/            # 6 color SVGs (with colored backgrounds)
 ```
 
-### Tips for Selecting Images
-- Choose clear, simple images with minimal background
-- For animals: close-up shots showing the whole animal
-- For objects: centered, well-lit images
-- For colors: vibrant, single-color dominant images
-- Ensure images are child-appropriate
+### SVG Image Format
+All images are 800x800px SVG files containing:
+- White gradient background (except colors)
+- Large emoji character (280px font size)
+- Dark gray emoji color (#333333) for visibility
+- Color cards maintain their respective colored backgrounds
 
-### Updating Credits
-After downloading images, update the `CREDITS.md` file with:
-- Image filename
-- Photographer name
-- Source URL
-- Platform (Unsplash/Pexels)
+## 🛠️ Customization
 
-## 🎨 Customization
-
-### Adding More Images
-To add more items to a category, edit `index.html`:
-
-```javascript
-{
-    id: 'farm-animals',
-    name: 'Farm Animals',
-    emoji: '🐄',
-    images: [
-        { name: 'Cow', src: 'images/farm-animals/cow.jpg', credit: 'Unsplash' },
-        // Add your new image here:
-        { name: 'Goat', src: 'images/farm-animals/goat.jpg', credit: 'Unsplash' },
-    ]
-}
-```
-
-### Adding New Categories
-Add a new category object in the `categories` array:
+### Adding More Items to a Category
+Edit `index.html` and add to the `images` array:
 
 ```javascript
 {
     id: 'fruits',
-    name: 'Fruits',
+    name: { en: 'Fruits', es: 'Frutas' },
     emoji: '🍎',
     images: [
-        { name: 'Apple', src: 'images/fruits/apple.jpg', credit: 'Unsplash' },
-        { name: 'Banana', src: 'images/fruits/banana.jpg', credit: 'Unsplash' },
+        { name: { en: 'Apple', es: 'Manzana' }, svgSrc: 'images/fruits/apple.svg' },
+        // Add your new item:
+        { name: { en: 'Mango', es: 'Mango' }, svgSrc: 'images/fruits/mango.svg' },
     ]
 }
 ```
 
-### Future Enhancements
-- 🔊 Add sound pronunciation for each word
-- 🎵 Background music toggle
-- 🏆 Progress tracking
-- 🌍 Multiple language support
-- ⭐ Favorites/bookmarks
+### Creating SVG Images
+Template for new SVG files:
+
+```xml
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad_uniqueid" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#grad_uniqueid)"/>
+  <text x="400" y="480" font-family="Arial, sans-serif" font-size="280" fill="#333333" text-anchor="middle" font-weight="bold">🥭</text>
+</svg>
+```
+
+### Adding New Categories
+Add a new category object in the `normalCategories` array:
+
+```javascript
+{
+    id: 'shapes',
+    name: { en: 'Shapes', es: 'Formas' },
+    emoji: '⭐',
+    images: [
+        { name: { en: 'Circle', es: 'Círculo' }, svgSrc: 'images/shapes/circle.svg' },
+        { name: { en: 'Square', es: 'Cuadrado' }, svgSrc: 'images/shapes/square.svg' },
+    ]
+}
+```
 
 ## 📱 Browser Support
-- Chrome, Firefox, Safari, Edge (modern versions)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-- Tablets optimized
+- ✅ Chrome, Firefox, Safari, Edge (modern versions)
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+- ✅ Tablets and phones (responsive design)
+- ✅ System font rendering for consistent display
+
+## 🎯 Educational Benefits
+- **Visual Learning**: Emoji-based recognition
+- **Bilingual Development**: English/Spanish vocabulary
+- **Speech Therapy Support**: Phonetically organized sounds by difficulty
+- **Self-Paced**: No time pressure, explore at own speed
+- **Repetition**: Easy navigation encourages repeated exposure
 
 ## 📄 License
 This project is free to use for educational purposes.
-Images are sourced from CC0 platforms (see CREDITS.md for details).
+
+All emojis are standard Unicode characters - universally available and license-free.
 
 ## 🤝 Contributing
-Feel free to add more categories, improve the UI, or add new features!
+Contributions welcome! Ideas for improvements:
+- Add more categories (shapes, numbers, musical instruments, etc.)
+- Add sound pronunciation
+- Add interactive games/quizzes
+- Add progress tracking
+- Expand speech therapy categories
+
+## 🔗 Links
+- GitHub Repository: [https://github.com/flenzi/first-words](https://github.com/flenzi/first-words)
 
 ---
 
