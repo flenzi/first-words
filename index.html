@@ -78,6 +78,34 @@
             justify-content: center;
             align-items: center;
             margin-top: 20px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .fullscreen-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.95);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(255,255,255,0.35);
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .fullscreen-btn:active {
+            transform: scale(1.02);
         }
 
         .view-toggle {
@@ -116,6 +144,10 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+        }
+
+        .footer-section .lang-toggle {
+            margin-top: 8px;
         }
 
         .footer-section h3 {
@@ -416,6 +448,7 @@
             font-size: 1.5rem;
             color: #667eea;
             font-weight: bold;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             background: rgba(102, 126, 234, 0.1);
             padding: 10px 20px;
             border-radius: 30px;
@@ -876,6 +909,11 @@
                         🗣️ {{ t.viewSpeech }}
                     </button>
                 </div>
+                <button @click="toggleFullscreen" class="fullscreen-btn" :title="t.fullscreenToggle">
+                    <span v-if="!isFullscreen">⛶</span>
+                    <span v-else>⛶</span>
+                    {{ isFullscreen ? t.exitFullscreen : t.enterFullscreen }}
+                </button>
             </div>
         </div>
 
@@ -1018,6 +1056,7 @@
                     selectedCategory: null,
                     currentIndex: 0,
                     imageLoading: true,
+                    isFullscreen: false,
                     translations: {
                         en: {
                             title: '🌟 First Words 🌟',
@@ -1025,6 +1064,9 @@
                             backButton: 'Back',
                             viewCategories: 'Categories',
                             viewSpeech: 'Speech Therapy',
+                            enterFullscreen: 'Fullscreen',
+                            exitFullscreen: 'Exit Fullscreen',
+                            fullscreenToggle: 'Toggle fullscreen mode',
                             footerAboutTitle: 'About',
                             footerAboutText: 'An interactive bilingual learning app designed for toddlers to discover their first words through colorful visuals and playful interactions.',
                             footerFeaturesTitle: 'Features',
@@ -1040,6 +1082,9 @@
                             backButton: 'Volver',
                             viewCategories: 'Categorías',
                             viewSpeech: 'Terapia del Habla',
+                            enterFullscreen: 'Pantalla Completa',
+                            exitFullscreen: 'Salir de Pantalla Completa',
+                            fullscreenToggle: 'Alternar modo de pantalla completa',
                             footerAboutTitle: 'Acerca de',
                             footerAboutText: 'Una aplicación de aprendizaje bilingüe interactiva diseñada para niños pequeños para descubrir sus primeras palabras a través de imágenes coloridas e interacciones lúdicas.',
                             footerFeaturesTitle: 'Características',
@@ -1677,14 +1722,36 @@
                             event.preventDefault();
                             this.randomizeImages();
                             break;
+                        case 'f':
+                        case 'F':
+                            this.toggleFullscreen();
+                            break;
                     }
+                },
+                toggleFullscreen() {
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen().then(() => {
+                            this.isFullscreen = true;
+                        }).catch(err => {
+                            console.log('Error attempting to enable fullscreen:', err);
+                        });
+                    } else {
+                        document.exitFullscreen().then(() => {
+                            this.isFullscreen = false;
+                        });
+                    }
+                },
+                handleFullscreenChange() {
+                    this.isFullscreen = !!document.fullscreenElement;
                 }
             },
             mounted() {
                 window.addEventListener('keydown', this.handleKeyboard);
+                document.addEventListener('fullscreenchange', this.handleFullscreenChange);
             },
             beforeUnmount() {
                 window.removeEventListener('keydown', this.handleKeyboard);
+                document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
             }
         }).mount('#app');
     </script>
