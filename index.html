@@ -785,6 +785,18 @@
                     this.currentIndex = 0;
                     this.imageLoading = true;
                     this.isViewerFullscreen = true;
+                    // Preload images after a short delay
+                    setTimeout(() => this.preloadImages(), 100);
+                },
+                preloadImages() {
+                    if (!this.selectedCategory) return;
+                    // Preload all images in the category
+                    this.currentCategoryImages.forEach((image, index) => {
+                        if (index !== this.currentIndex) {
+                            const img = new Image();
+                            img.src = image.svgSrc;
+                        }
+                    });
                 },
                 goBack() {
                     this.selectedCategory = null;

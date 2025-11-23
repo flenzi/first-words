@@ -170,7 +170,7 @@
         }
 
         .lang-toggle {
-            display: flex;
+            display: inline-flex;
             gap: 10px;
             background: rgba(255,255,255,0.15);
             backdrop-filter: blur(10px);
