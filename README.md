@@ -2,6 +2,10 @@
 
 A playful, interactive bilingual web app to help toddlers (ages 2-3) learn their first words through colorful emoji-based images.
 
+**🚀 [Try it live!](https://flenzi.github.io/first-words/)**
+
+---
+
 ## ✨ Features
 
 ### **Bilingual Support (English/Spanish)**
@@ -51,6 +55,7 @@ Phonetically organized categories by difficulty for speech development:
 - **Navigation Controls**: Large arrow buttons to move next/previous
 - **Progress Counter**: Shows current position (e.g., "3 / 12")
 - **Back Button**: Return to category selection anytime
+- **Keyboard Navigation**: Use arrow keys (← →) to navigate images, spacebar to shuffle, Escape to go back
 
 ### **Design & UX**
 - **Clean White Backgrounds**: All cards have white backgrounds (except color cards which display their respective colors)
@@ -58,7 +63,10 @@ Phonetically organized categories by difficulty for speech development:
 - **Responsive Design**: Optimized for phones, tablets, and desktops
 - **Mobile-Optimized Fonts**: System font stack for consistent rendering across all devices
 - **Glassmorphism UI**: Modern frosted glass effects for header and footer
-- **Smooth Animations**: Playful transitions and hover effects
+- **Vue-Powered Transitions**: Smooth fade, slide, and 3D flip animations between views and images
+- **Staggered Entrance Animations**: Categories appear one-by-one with elegant timing
+- **Interactive Button Effects**: Ripple effects, hover animations, and polished feedback
+- **Keyboard Support**: Full keyboard navigation for accessibility and power users
 
 ### **Footer**
 - Language toggle (EN/ES)
