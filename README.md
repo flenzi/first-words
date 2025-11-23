@@ -2,6 +2,10 @@
 
 A playful, interactive bilingual web app to help toddlers (ages 2-3) learn their first words through colorful emoji-based images.
 
+**🚀 [Try it live!](https://flenzi.github.io/first-words/)**
+
+---
+
 ## ✨ Features
 
 ### **Bilingual Support (English/Spanish)**
