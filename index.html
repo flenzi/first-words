@@ -250,14 +250,6 @@
             margin-bottom: 30px;
         }
 
-        .main-image {
-            max-width: 100%;
-            max-height: 500px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            object-fit: contain;
-        }
-
         .category-title {
             font-size: 1.5rem;
             font-weight: 600;
@@ -435,10 +427,6 @@
             .viewer-container {
                 padding: 20px;
                 margin-top: 10px;
-            }
-
-            .main-image {
-                max-height: 300px;
             }
 
             .category-title {
@@ -660,23 +648,80 @@
             backface-visibility: hidden;
         }
 
-        /* Loading pulse for images */
+        /* Loading skeleton for images */
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(
+                90deg,
+                rgba(102, 126, 234, 0.1) 0%,
+                rgba(102, 126, 234, 0.2) 50%,
+                rgba(102, 126, 234, 0.1) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 1.5s ease-in-out infinite;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-skeleton::before {
+            content: '📸';
+            font-size: 4rem;
+            opacity: 0.3;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
         @keyframes shimmer {
             0% {
-                background-position: -1000px 0;
+                background-position: -200% 0;
             }
             100% {
-                background-position: 1000px 0;
+                background-position: 200% 0;
             }
         }
 
         .main-image {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            object-fit: contain;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .main-image:hover {
             transform: scale(1.02);
             box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .image-wrapper {
+                height: 300px;
+                max-height: 300px;
+            }
+
+            .image-skeleton::before {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
@@ -758,13 +803,21 @@
                     </transition>
 
                     <div class="image-container">
-                        <transition name="image-transition" mode="out-in">
-                            <img
-                                :key="currentIndex"
-                                :src="currentImage.svgSrc"
-                                :alt="currentImage.name[currentLang]"
-                                class="main-image">
-                        </transition>
+                        <div class="image-wrapper">
+                            <transition name="fade" mode="out-in">
+                                <div v-if="imageLoading" :key="'skeleton-' + currentIndex" class="image-skeleton"></div>
+                            </transition>
+                            <transition name="image-transition" mode="out-in">
+                                <img
+                                    v-show="!imageLoading"
+                                    :key="currentIndex"
+                                    :src="currentImage.svgSrc"
+                                    :alt="currentImage.name[currentLang]"
+                                    @load="onImageLoad"
+                                    @error="onImageError"
+                                    class="main-image">
+                            </transition>
+                        </div>
                     </div>
 
                     <transition name="fade" appear>
@@ -810,6 +863,7 @@
                     viewMode: localStorage.getItem('firstwords-viewmode') || 'categories',
                     selectedCategory: null,
                     currentIndex: 0,
+                    imageLoading: true,
                     translations: {
                         en: {
                             title: '🌟 First Words 🌟',
@@ -1396,12 +1450,15 @@
                 selectCategory(category) {
                     this.selectedCategory = category;
                     this.currentIndex = 0;
+                    this.imageLoading = true;
                 },
                 goBack() {
                     this.selectedCategory = null;
                     this.currentIndex = 0;
+                    this.imageLoading = true;
                 },
                 nextImage() {
+                    this.imageLoading = true;
                     if (this.currentIndex < this.currentCategoryImages.length - 1) {
                         this.currentIndex++;
                     } else {
@@ -1409,6 +1466,7 @@
                     }
                 },
                 previousImage() {
+                    this.imageLoading = true;
                     if (this.currentIndex > 0) {
                         this.currentIndex--;
                     } else {
@@ -1416,12 +1474,19 @@
                     }
                 },
                 randomizeImages() {
+                    this.imageLoading = true;
                     // Jump to a random position (different from current)
                     let newIndex;
                     do {
                         newIndex = Math.floor(Math.random() * this.currentCategoryImages.length);
                     } while (newIndex === this.currentIndex && this.currentCategoryImages.length > 1);
                     this.currentIndex = newIndex;
+                },
+                onImageLoad() {
+                    this.imageLoading = false;
+                },
+                onImageError() {
+                    this.imageLoading = false;
                 },
                 handleKeyboard(event) {
                     if (!this.selectedCategory) return;
