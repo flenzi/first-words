@@ -396,7 +396,7 @@
         </div>
 
         <!-- Image Viewer -->
-        <div v-else>
+        <div v-if="selectedCategory">
             <button @click="goBack" class="back-btn">⬅️ {{ t.backButton }}</button>
 
             <div class="viewer-container">
