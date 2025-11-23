@@ -383,6 +383,84 @@
             text-align: center;
             margin-bottom: 20px;
             border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Fullscreen viewer mode */
+        .fullscreen-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .fullscreen-viewer .viewer-container {
+            max-width: 90vw;
+            max-height: 85vh;
+            margin: 0;
+            border-radius: 20px;
+        }
+
+        .fullscreen-viewer .back-btn {
+            margin-bottom: 15px;
+        }
+
+        .fullscreen-exit-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+        }
+
+        .fullscreen-exit-btn:hover {
+            background: rgba(255,255,255,0.35);
+            transform: scale(1.05);
+        }
+
+        .fullscreen-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(102, 126, 234, 0.9);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fullscreen-toggle-btn:hover {
+            background: rgba(102, 126, 234, 1);
+            transform: scale(1.05);
         }
 
         .image-container {
@@ -952,7 +1030,24 @@
 
         <!-- Image Viewer -->
         <transition name="slide-fade" mode="out-in">
-            <div v-if="selectedCategory" key="viewer">
+            <div v-if="selectedCategory" key="viewer" :class="{ 'fullscreen-viewer': isViewerFullscreen }">
+                <!-- Fullscreen toggle button (only shown in normal mode) -->
+                <button
+                    v-if="!isViewerFullscreen"
+                    @click="isViewerFullscreen = true"
+                    class="fullscreen-toggle-btn"
+                    :title="t.viewerFullscreen">
+                    ⛶ {{ t.viewerFullscreen }}
+                </button>
+
+                <!-- Exit fullscreen button (only shown in fullscreen mode) -->
+                <button
+                    v-if="isViewerFullscreen"
+                    @click="isViewerFullscreen = false"
+                    class="fullscreen-exit-btn">
+                    ✕ {{ t.exitViewerFullscreen }}
+                </button>
+
                 <transition name="fade" appear>
                     <button @click="goBack" class="back-btn">⬅️ {{ t.backButton }}</button>
                 </transition>
@@ -1057,6 +1152,7 @@
                     currentIndex: 0,
                     imageLoading: true,
                     isFullscreen: false,
+                    isViewerFullscreen: false,
                     translations: {
                         en: {
                             title: '🌟 First Words 🌟',
@@ -1067,6 +1163,8 @@
                             enterFullscreen: 'Fullscreen',
                             exitFullscreen: 'Exit Fullscreen',
                             fullscreenToggle: 'Toggle fullscreen mode',
+                            viewerFullscreen: 'Fullscreen Viewer',
+                            exitViewerFullscreen: 'Exit Fullscreen',
                             footerAboutTitle: 'About',
                             footerAboutText: 'An interactive bilingual learning app designed for toddlers to discover their first words through colorful visuals and playful interactions.',
                             footerFeaturesTitle: 'Features',
@@ -1085,6 +1183,8 @@
                             enterFullscreen: 'Pantalla Completa',
                             exitFullscreen: 'Salir de Pantalla Completa',
                             fullscreenToggle: 'Alternar modo de pantalla completa',
+                            viewerFullscreen: 'Visor de Pantalla Completa',
+                            exitViewerFullscreen: 'Salir de Pantalla Completa',
                             footerAboutTitle: 'Acerca de',
                             footerAboutText: 'Una aplicación de aprendizaje bilingüe interactiva diseñada para niños pequeños para descubrir sus primeras palabras a través de imágenes coloridas e interacciones lúdicas.',
                             footerFeaturesTitle: 'Características',
@@ -1671,6 +1771,7 @@
                     this.selectedCategory = null;
                     this.currentIndex = 0;
                     this.imageLoading = true;
+                    this.isViewerFullscreen = false;
                 },
                 nextImage() {
                     this.imageLoading = true;
@@ -1704,6 +1805,13 @@
                     this.imageLoading = false;
                 },
                 handleKeyboard(event) {
+                    // Handle viewer fullscreen exit
+                    if (this.isViewerFullscreen && event.key === 'Escape') {
+                        this.isViewerFullscreen = false;
+                        event.preventDefault();
+                        return;
+                    }
+
                     if (!this.selectedCategory) return;
 
                     switch(event.key) {
@@ -1716,7 +1824,9 @@
                             this.nextImage();
                             break;
                         case 'Escape':
-                            this.goBack();
+                            if (!this.isViewerFullscreen) {
+                                this.goBack();
+                            }
                             break;
                         case ' ':
                             event.preventDefault();
@@ -1724,7 +1834,8 @@
                             break;
                         case 'f':
                         case 'F':
-                            this.toggleFullscreen();
+                            event.preventDefault();
+                            this.isViewerFullscreen = !this.isViewerFullscreen;
                             break;
                     }
                 },
