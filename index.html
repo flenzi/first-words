@@ -67,13 +67,6 @@
         <!-- Image Viewer -->
         <transition name="slide-fade" mode="out-in">
             <div v-if="selectedCategory" key="viewer" :class="{ 'fullscreen-viewer': isViewerFullscreen }">
-                <!-- Exit fullscreen button -->
-                <button
-                    @click="isViewerFullscreen = false"
-                    class="fullscreen-exit-btn">
-                    ✕ {{ t.exitViewerFullscreen }}
-                </button>
-
                 <transition name="fade" appear>
                     <button @click="goBack" class="back-btn">⬅️ {{ t.backButton }}</button>
                 </transition>

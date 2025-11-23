@@ -379,32 +379,6 @@
             margin-bottom: 15px;
         }
 
-        .fullscreen-exit-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 10000;
-        }
-
-        .fullscreen-exit-btn:hover {
-            background: rgba(255,255,255,0.35);
-            transform: scale(1.05);
-        }
-
         .image-container {
             position: relative;
             margin-bottom: 30px;
