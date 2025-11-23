@@ -14,15 +14,40 @@
 
         body {
             font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         #app {
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
+            z-index: 1;
         }
 
         .header-container {
@@ -69,20 +94,81 @@
 
         .footer {
             margin-top: 40px;
-            padding: 25px 30px;
+            padding: 30px;
             background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
             backdrop-filter: blur(15px);
             border-radius: 25px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25),
+                        0 2px 8px rgba(255,255,255,0.2) inset;
+            border: 1px solid rgba(255,255,255,0.25);
+            animation: slideInUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s backwards;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-section p, .footer-section li {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section li {
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-section li::before {
+            content: '✓';
+            color: rgba(255,255,255,0.7);
+            font-weight: bold;
+        }
+
+        .footer-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
             flex-wrap: wrap;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25),
-                        0 2px 8px rgba(255,255,255,0.2) inset;
-            border: 1px solid rgba(255,255,255,0.25);
-            animation: slideInUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s backwards;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer-credits {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .lang-toggle {
@@ -202,15 +288,18 @@
             font-weight: bold;
             color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3),
+                        0 0 0 1px rgba(255,255,255,0.3) inset;
             text-transform: uppercase;
             letter-spacing: 1px;
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         .category-btn:hover {
-            transform: scale(1.1) rotate(-2deg);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transform: scale(1.1) rotate(-2deg) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4),
+                        0 0 0 1px rgba(255,255,255,0.5) inset;
         }
 
         .category-btn.active {
@@ -236,13 +325,32 @@
             color: #333;
         }
 
+        .category-btn:nth-child(5) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .category-btn:nth-child(6) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .category-btn:nth-child(7) {
+            background: linear-gradient(135deg, #fa8bff 0%, #2bd2ff 90%, #2bff88 100%);
+        }
+
+        .category-btn:nth-child(8) {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #333;
+        }
+
         .viewer-container {
-            background: white;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
             border-radius: 30px;
             padding: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3),
+                        0 0 0 1px rgba(255,255,255,0.5) inset;
             text-align: center;
             margin-bottom: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
 
         .image-container {
@@ -499,6 +607,28 @@
 
             .sound-level {
                 font-size: 0.8rem;
+            }
+
+            .footer {
+                padding: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-section h3 {
+                font-size: 1rem;
+            }
+
+            .footer-section p, .footer-section li {
+                font-size: 0.85rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
             }
         }
 
@@ -832,21 +962,47 @@
 
         <!-- Footer -->
         <div class="footer">
-            <div class="lang-toggle">
-                <button
-                    @click="switchLanguage('en')"
-                    :class="{ 'lang-btn': true, 'active': currentLang === 'en' }">
-                    EN
-                </button>
-                <button
-                    @click="switchLanguage('es')"
-                    :class="{ 'lang-btn': true, 'active': currentLang === 'es' }">
-                    ES
-                </button>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>📚 {{ t.footerAboutTitle }}</h3>
+                    <p>{{ t.footerAboutText }}</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>✨ {{ t.footerFeaturesTitle }}</h3>
+                    <ul>
+                        <li>{{ t.footerFeature1 }}</li>
+                        <li>{{ t.footerFeature2 }}</li>
+                        <li>{{ t.footerFeature3 }}</li>
+                        <li>{{ t.footerFeature4 }}</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>🌐 {{ t.footerLanguageTitle }}</h3>
+                    <div class="lang-toggle">
+                        <button
+                            @click="switchLanguage('en')"
+                            :class="{ 'lang-btn': true, 'active': currentLang === 'en' }">
+                            🇬🇧 EN
+                        </button>
+                        <button
+                            @click="switchLanguage('es')"
+                            :class="{ 'lang-btn': true, 'active': currentLang === 'es' }">
+                            🇪🇸 ES
+                        </button>
+                    </div>
+                </div>
             </div>
-            <a href="https://github.com/flenzi/first-words" target="_blank" class="footer-link">
-                GitHub Repository
-            </a>
+
+            <div class="footer-bottom">
+                <div class="footer-credits">
+                    Made with ❤️ for little learners
+                </div>
+                <a href="https://github.com/flenzi/first-words" target="_blank" class="footer-link">
+                    GitHub Repository
+                </a>
+            </div>
         </div>
 
     </div>
@@ -868,14 +1024,30 @@
                             subtitle: 'Learn and have fun!',
                             backButton: 'Back',
                             viewCategories: 'Categories',
-                            viewSpeech: 'Speech Therapy'
+                            viewSpeech: 'Speech Therapy',
+                            footerAboutTitle: 'About',
+                            footerAboutText: 'An interactive bilingual learning app designed for toddlers to discover their first words through colorful visuals and playful interactions.',
+                            footerFeaturesTitle: 'Features',
+                            footerFeature1: 'Bilingual support (EN/ES)',
+                            footerFeature2: '13 themed categories',
+                            footerFeature3: 'Speech therapy mode',
+                            footerFeature4: 'Keyboard navigation',
+                            footerLanguageTitle: 'Language'
                         },
                         es: {
                             title: '🌟 Primeras Palabras 🌟',
                             subtitle: '¡Aprende y diviértete!',
                             backButton: 'Volver',
                             viewCategories: 'Categorías',
-                            viewSpeech: 'Terapia del Habla'
+                            viewSpeech: 'Terapia del Habla',
+                            footerAboutTitle: 'Acerca de',
+                            footerAboutText: 'Una aplicación de aprendizaje bilingüe interactiva diseñada para niños pequeños para descubrir sus primeras palabras a través de imágenes coloridas e interacciones lúdicas.',
+                            footerFeaturesTitle: 'Características',
+                            footerFeature1: 'Soporte bilingüe (EN/ES)',
+                            footerFeature2: '13 categorías temáticas',
+                            footerFeature3: 'Modo de terapia del habla',
+                            footerFeature4: 'Navegación por teclado',
+                            footerLanguageTitle: 'Idioma'
                         }
                     },
                     soundCategories: {
