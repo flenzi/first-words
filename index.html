@@ -28,11 +28,6 @@
                         🗣️ {{ t.viewSpeech }}
                     </button>
                 </div>
-                <button @click="toggleFullscreen" class="fullscreen-btn" :title="t.fullscreenToggle">
-                    <span v-if="!isFullscreen">⛶</span>
-                    <span v-else>⛶</span>
-                    {{ isFullscreen ? t.exitFullscreen : t.enterFullscreen }}
-                </button>
             </div>
         </div>
 
@@ -72,23 +67,6 @@
         <!-- Image Viewer -->
         <transition name="slide-fade" mode="out-in">
             <div v-if="selectedCategory" key="viewer" :class="{ 'fullscreen-viewer': isViewerFullscreen }">
-                <!-- Fullscreen toggle button (only shown in normal mode) -->
-                <button
-                    v-if="!isViewerFullscreen"
-                    @click="isViewerFullscreen = true"
-                    class="fullscreen-toggle-btn"
-                    :title="t.viewerFullscreen">
-                    ⛶ {{ t.viewerFullscreen }}
-                </button>
-
-                <!-- Exit fullscreen button (only shown in fullscreen mode) -->
-                <button
-                    v-if="isViewerFullscreen"
-                    @click="isViewerFullscreen = false"
-                    class="fullscreen-exit-btn">
-                    ✕ {{ t.exitViewerFullscreen }}
-                </button>
-
                 <transition name="fade" appear>
                     <button @click="goBack" class="back-btn">⬅️ {{ t.backButton }}</button>
                 </transition>
@@ -192,7 +170,6 @@
                     selectedCategory: null,
                     currentIndex: 0,
                     imageLoading: true,
-                    isFullscreen: false,
                     isViewerFullscreen: false,
                     translations: {
                         en: {
@@ -423,6 +400,21 @@
                             },
                         ],
                         es: [
+                            // ⭐ Easy Sounds
+                            {
+                                id: 'sound-vowels-es',
+                                name: 'Vocales A, E, O, U',
+                                phonetic: '/a/ /e/ /o/ /u/',
+                                level: '⭐ Fácil - Vocales',
+                                images: [
+                                    { name: { en: 'Bear', es: 'Oso' }, svgSrc: 'images/wild-animals/bear.svg' },
+                                    { name: { en: 'Sheep', es: 'Oveja' }, svgSrc: 'images/farm-animals/sheep.svg' },
+                                    { name: { en: 'Tree', es: 'Árbol' }, svgSrc: 'images/nature/tree.svg' },
+                                    { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/fruits/orange.svg' },
+                                    { name: { en: 'Ear', es: 'Oreja' }, svgSrc: 'images/body-parts/ear.svg' },
+                                    { name: { en: 'Grapes', es: 'Uvas' }, svgSrc: 'images/fruits/grapes.svg' },
+                                ]
+                            },
                             {
                                 id: 'sound-m-n-es',
                                 name: 'Sonidos M y N',
@@ -452,20 +444,7 @@
                                     { name: { en: 'Blue', es: 'Azul' }, svgSrc: 'images/colors/blue.svg' },
                                 ]
                             },
-                            {
-                                id: 'sound-vowels-es',
-                                name: 'Vocales A, E, O, U',
-                                phonetic: '/a/ /e/ /o/ /u/',
-                                level: '⭐ Fácil - Vocales',
-                                images: [
-                                    { name: { en: 'Bear', es: 'Oso' }, svgSrc: 'images/wild-animals/bear.svg' },
-                                    { name: { en: 'Sheep', es: 'Oveja' }, svgSrc: 'images/farm-animals/sheep.svg' },
-                                    { name: { en: 'Tree', es: 'Árbol' }, svgSrc: 'images/nature/tree.svg' },
-                                    { name: { en: 'Orange', es: 'Naranja' }, svgSrc: 'images/fruits/orange.svg' },
-                                    { name: { en: 'Ear', es: 'Oreja' }, svgSrc: 'images/body-parts/ear.svg' },
-                                    { name: { en: 'Grapes', es: 'Uvas' }, svgSrc: 'images/fruits/grapes.svg' },
-                                ]
-                            },
+                            // ⭐⭐ Medium Sounds
                             {
                                 id: 'sound-p-b-es',
                                 name: 'Sonidos P y B',
@@ -487,7 +466,7 @@
                                 id: 'sound-t-d-es',
                                 name: 'Sonidos T y D',
                                 phonetic: '/t/ /d/',
-                                level: '⭐⭐ Oclusivas Frontales',
+                                level: '⭐⭐ Medio - Oclusivas Frontales',
                                 images: [
                                     { name: { en: 'Tiger', es: 'Tigre' }, svgSrc: 'images/wild-animals/tiger.svg' },
                                     { name: { en: 'Tomato', es: 'Tomate' }, svgSrc: 'images/vegetables/tomato.svg' },
@@ -496,10 +475,61 @@
                                 ]
                             },
                             {
+                                id: 'sound-v-es',
+                                name: 'Sonido V (como B)',
+                                phonetic: '/b/',
+                                level: '⭐⭐ Medio - V como B',
+                                images: [
+                                    { name: { en: 'Cow', es: 'Vaca' }, svgSrc: 'images/farm-animals/cow.svg' },
+                                    { name: { en: 'Green', es: 'Verde' }, svgSrc: 'images/colors/green.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-f-es',
+                                name: 'Sonido F',
+                                phonetic: '/f/',
+                                level: '⭐⭐ Medio - Fricativa',
+                                images: [
+                                    { name: { en: 'Flower', es: 'Flor' }, svgSrc: 'images/nature/flower.svg' },
+                                    { name: { en: 'Strawberry', es: 'Fresa' }, svgSrc: 'images/fruits/strawberry.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-j-es',
+                                name: 'Sonido J/G (ge/gi)',
+                                phonetic: '/x/',
+                                level: '⭐⭐ Medio - Fricativa Velar',
+                                images: [
+                                    { name: { en: 'Giraffe', es: 'Jirafa' }, svgSrc: 'images/wild-animals/giraffe.svg' },
+                                    { name: { en: 'Eye', es: 'Ojo' }, svgSrc: 'images/body-parts/eye.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-r-es',
+                                name: 'Sonido R',
+                                phonetic: '/r/',
+                                level: '⭐⭐ Medio - Vibrante',
+                                images: [
+                                    { name: { en: 'Red', es: 'Rojo' }, svgSrc: 'images/colors/red.svg' },
+                                ]
+                            },
+                            {
+                                id: 'sound-ll-y-es',
+                                name: 'Sonidos LL/Y',
+                                phonetic: '/ʝ/ /ʎ/',
+                                level: '⭐⭐ Medio - Lateral Palatal',
+                                images: [
+                                    { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg' },
+                                    { name: { en: 'Horse', es: 'Caballo' }, svgSrc: 'images/farm-animals/horse.svg' },
+                                    { name: { en: 'Yellow', es: 'Amarillo' }, svgSrc: 'images/colors/yellow.svg' },
+                                ]
+                            },
+                            // ⭐⭐⭐ Hard Sounds
+                            {
                                 id: 'sound-k-g-es',
                                 name: 'Sonidos C/K y G',
                                 phonetic: '/k/ /g/',
-                                level: '⭐⭐⭐ Oclusivas Velares',
+                                level: '⭐⭐⭐ Difícil - Oclusivas Velares',
                                 images: [
                                     { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg' },
                                     { name: { en: 'Car', es: 'Coche' }, svgSrc: 'images/vehicles/car.svg' },
@@ -512,30 +542,10 @@
                                 ]
                             },
                             {
-                                id: 'sound-v-es',
-                                name: 'Sonido V (como B)',
-                                phonetic: '/b/',
-                                level: '⭐⭐ V se pronuncia como B',
-                                images: [
-                                    { name: { en: 'Cow', es: 'Vaca' }, svgSrc: 'images/farm-animals/cow.svg' },
-                                    { name: { en: 'Green', es: 'Verde' }, svgSrc: 'images/colors/green.svg' },
-                                ]
-                            },
-                            {
-                                id: 'sound-f-es',
-                                name: 'Sonido F',
-                                phonetic: '/f/',
-                                level: '⭐⭐ Fricativa Visual',
-                                images: [
-                                    { name: { en: 'Flower', es: 'Flor' }, svgSrc: 'images/nature/flower.svg' },
-                                    { name: { en: 'Strawberry', es: 'Fresa' }, svgSrc: 'images/fruits/strawberry.svg' },
-                                ]
-                            },
-                            {
                                 id: 'sound-s-z-c-es',
                                 name: 'Sonidos S, Z, C (ce/ci)',
                                 phonetic: '/s/ /θ/',
-                                level: '⭐⭐⭐ Sibilantes - Desafiante',
+                                level: '⭐⭐⭐ Difícil - Sibilantes',
                                 images: [
                                     { name: { en: 'Sun', es: 'Sol' }, svgSrc: 'images/nature/sun.svg' },
                                     { name: { en: 'Watermelon', es: 'Sandía' }, svgSrc: 'images/fruits/watermelon.svg' },
@@ -545,36 +555,6 @@
                                     { name: { en: 'Carrot', es: 'Zanahoria' }, svgSrc: 'images/vegetables/carrot.svg' },
                                     { name: { en: 'Hat', es: 'Sombrero' }, svgSrc: 'images/clothing/hat.svg' },
                                     { name: { en: 'Shoes', es: 'Zapatos' }, svgSrc: 'images/clothing/shoes.svg' },
-                                ]
-                            },
-                            {
-                                id: 'sound-j-es',
-                                name: 'Sonido J/G (ge/gi)',
-                                phonetic: '/x/',
-                                level: '⭐⭐ Fricativa Velar',
-                                images: [
-                                    { name: { en: 'Giraffe', es: 'Jirafa' }, svgSrc: 'images/wild-animals/giraffe.svg' },
-                                    { name: { en: 'Eye', es: 'Ojo' }, svgSrc: 'images/body-parts/eye.svg' },
-                                ]
-                            },
-                            {
-                                id: 'sound-r-es',
-                                name: 'Sonido R',
-                                phonetic: '/r/',
-                                level: '⭐⭐ Vibrante Simple',
-                                images: [
-                                    { name: { en: 'Red', es: 'Rojo' }, svgSrc: 'images/colors/red.svg' },
-                                ]
-                            },
-                            {
-                                id: 'sound-ll-y-es',
-                                name: 'Sonidos LL/Y',
-                                phonetic: '/ʝ/ /ʎ/',
-                                level: '⭐⭐ Lateral Palatal',
-                                images: [
-                                    { name: { en: 'Chicken', es: 'Gallina' }, svgSrc: 'images/farm-animals/chicken.svg' },
-                                    { name: { en: 'Horse', es: 'Caballo' }, svgSrc: 'images/farm-animals/horse.svg' },
-                                    { name: { en: 'Yellow', es: 'Amarillo' }, svgSrc: 'images/colors/yellow.svg' },
                                 ]
                             },
                         ]
@@ -774,6 +754,120 @@
                                 { name: { en: 'Violin', es: 'Violín' }, svgSrc: 'images/instruments/violin.svg' },
                                 { name: { en: 'Saxophone', es: 'Saxofón' }, svgSrc: 'images/instruments/saxophone.svg' },
                             ]
+                        },
+                        {
+                            id: 'flags',
+                            name: { en: 'Country Flags', es: 'Banderas de Países' },
+                            emoji: '🌍',
+                            images: [
+                                // North America
+                                { name: { en: 'United States', es: 'Estados Unidos' }, svgSrc: 'https://flagcdn.com/us.svg' },
+                                { name: { en: 'Canada', es: 'Canadá' }, svgSrc: 'https://flagcdn.com/ca.svg' },
+                                { name: { en: 'Mexico', es: 'México' }, svgSrc: 'https://flagcdn.com/mx.svg' },
+                                // Central America & Caribbean
+                                { name: { en: 'Guatemala', es: 'Guatemala' }, svgSrc: 'https://flagcdn.com/gt.svg' },
+                                { name: { en: 'Honduras', es: 'Honduras' }, svgSrc: 'https://flagcdn.com/hn.svg' },
+                                { name: { en: 'El Salvador', es: 'El Salvador' }, svgSrc: 'https://flagcdn.com/sv.svg' },
+                                { name: { en: 'Nicaragua', es: 'Nicaragua' }, svgSrc: 'https://flagcdn.com/ni.svg' },
+                                { name: { en: 'Costa Rica', es: 'Costa Rica' }, svgSrc: 'https://flagcdn.com/cr.svg' },
+                                { name: { en: 'Panama', es: 'Panamá' }, svgSrc: 'https://flagcdn.com/pa.svg' },
+                                { name: { en: 'Cuba', es: 'Cuba' }, svgSrc: 'https://flagcdn.com/cu.svg' },
+                                { name: { en: 'Jamaica', es: 'Jamaica' }, svgSrc: 'https://flagcdn.com/jm.svg' },
+                                { name: { en: 'Haiti', es: 'Haití' }, svgSrc: 'https://flagcdn.com/ht.svg' },
+                                { name: { en: 'Dominican Republic', es: 'República Dominicana' }, svgSrc: 'https://flagcdn.com/do.svg' },
+                                { name: { en: 'Puerto Rico', es: 'Puerto Rico' }, svgSrc: 'https://flagcdn.com/pr.svg' },
+                                // South America
+                                { name: { en: 'Brazil', es: 'Brasil' }, svgSrc: 'https://flagcdn.com/br.svg' },
+                                { name: { en: 'Argentina', es: 'Argentina' }, svgSrc: 'https://flagcdn.com/ar.svg' },
+                                { name: { en: 'Colombia', es: 'Colombia' }, svgSrc: 'https://flagcdn.com/co.svg' },
+                                { name: { en: 'Chile', es: 'Chile' }, svgSrc: 'https://flagcdn.com/cl.svg' },
+                                { name: { en: 'Peru', es: 'Perú' }, svgSrc: 'https://flagcdn.com/pe.svg' },
+                                { name: { en: 'Venezuela', es: 'Venezuela' }, svgSrc: 'https://flagcdn.com/ve.svg' },
+                                { name: { en: 'Ecuador', es: 'Ecuador' }, svgSrc: 'https://flagcdn.com/ec.svg' },
+                                { name: { en: 'Uruguay', es: 'Uruguay' }, svgSrc: 'https://flagcdn.com/uy.svg' },
+                                { name: { en: 'Paraguay', es: 'Paraguay' }, svgSrc: 'https://flagcdn.com/py.svg' },
+                                { name: { en: 'Bolivia', es: 'Bolivia' }, svgSrc: 'https://flagcdn.com/bo.svg' },
+                                // Western Europe
+                                { name: { en: 'United Kingdom', es: 'Reino Unido' }, svgSrc: 'https://flagcdn.com/gb.svg' },
+                                { name: { en: 'Spain', es: 'España' }, svgSrc: 'https://flagcdn.com/es.svg' },
+                                { name: { en: 'France', es: 'Francia' }, svgSrc: 'https://flagcdn.com/fr.svg' },
+                                { name: { en: 'Germany', es: 'Alemania' }, svgSrc: 'https://flagcdn.com/de.svg' },
+                                { name: { en: 'Italy', es: 'Italia' }, svgSrc: 'https://flagcdn.com/it.svg' },
+                                { name: { en: 'Portugal', es: 'Portugal' }, svgSrc: 'https://flagcdn.com/pt.svg' },
+                                { name: { en: 'Netherlands', es: 'Países Bajos' }, svgSrc: 'https://flagcdn.com/nl.svg' },
+                                { name: { en: 'Belgium', es: 'Bélgica' }, svgSrc: 'https://flagcdn.com/be.svg' },
+                                { name: { en: 'Switzerland', es: 'Suiza' }, svgSrc: 'https://flagcdn.com/ch.svg' },
+                                { name: { en: 'Austria', es: 'Austria' }, svgSrc: 'https://flagcdn.com/at.svg' },
+                                { name: { en: 'Ireland', es: 'Irlanda' }, svgSrc: 'https://flagcdn.com/ie.svg' },
+                                { name: { en: 'Luxembourg', es: 'Luxemburgo' }, svgSrc: 'https://flagcdn.com/lu.svg' },
+                                // Northern Europe
+                                { name: { en: 'Sweden', es: 'Suecia' }, svgSrc: 'https://flagcdn.com/se.svg' },
+                                { name: { en: 'Norway', es: 'Noruega' }, svgSrc: 'https://flagcdn.com/no.svg' },
+                                { name: { en: 'Denmark', es: 'Dinamarca' }, svgSrc: 'https://flagcdn.com/dk.svg' },
+                                { name: { en: 'Finland', es: 'Finlandia' }, svgSrc: 'https://flagcdn.com/fi.svg' },
+                                { name: { en: 'Iceland', es: 'Islandia' }, svgSrc: 'https://flagcdn.com/is.svg' },
+                                // Eastern Europe
+                                { name: { en: 'Poland', es: 'Polonia' }, svgSrc: 'https://flagcdn.com/pl.svg' },
+                                { name: { en: 'Czech Republic', es: 'República Checa' }, svgSrc: 'https://flagcdn.com/cz.svg' },
+                                { name: { en: 'Slovakia', es: 'Eslovaquia' }, svgSrc: 'https://flagcdn.com/sk.svg' },
+                                { name: { en: 'Hungary', es: 'Hungría' }, svgSrc: 'https://flagcdn.com/hu.svg' },
+                                { name: { en: 'Romania', es: 'Rumania' }, svgSrc: 'https://flagcdn.com/ro.svg' },
+                                { name: { en: 'Bulgaria', es: 'Bulgaria' }, svgSrc: 'https://flagcdn.com/bg.svg' },
+                                { name: { en: 'Ukraine', es: 'Ucrania' }, svgSrc: 'https://flagcdn.com/ua.svg' },
+                                { name: { en: 'Russia', es: 'Rusia' }, svgSrc: 'https://flagcdn.com/ru.svg' },
+                                // Southern Europe
+                                { name: { en: 'Greece', es: 'Grecia' }, svgSrc: 'https://flagcdn.com/gr.svg' },
+                                { name: { en: 'Croatia', es: 'Croacia' }, svgSrc: 'https://flagcdn.com/hr.svg' },
+                                { name: { en: 'Slovenia', es: 'Eslovenia' }, svgSrc: 'https://flagcdn.com/si.svg' },
+                                { name: { en: 'Serbia', es: 'Serbia' }, svgSrc: 'https://flagcdn.com/rs.svg' },
+                                { name: { en: 'Bosnia', es: 'Bosnia' }, svgSrc: 'https://flagcdn.com/ba.svg' },
+                                { name: { en: 'Albania', es: 'Albania' }, svgSrc: 'https://flagcdn.com/al.svg' },
+                                // Middle East
+                                { name: { en: 'Turkey', es: 'Turquía' }, svgSrc: 'https://flagcdn.com/tr.svg' },
+                                { name: { en: 'Israel', es: 'Israel' }, svgSrc: 'https://flagcdn.com/il.svg' },
+                                { name: { en: 'Saudi Arabia', es: 'Arabia Saudita' }, svgSrc: 'https://flagcdn.com/sa.svg' },
+                                { name: { en: 'UAE', es: 'Emiratos Árabes' }, svgSrc: 'https://flagcdn.com/ae.svg' },
+                                { name: { en: 'Iran', es: 'Irán' }, svgSrc: 'https://flagcdn.com/ir.svg' },
+                                { name: { en: 'Iraq', es: 'Irak' }, svgSrc: 'https://flagcdn.com/iq.svg' },
+                                { name: { en: 'Jordan', es: 'Jordania' }, svgSrc: 'https://flagcdn.com/jo.svg' },
+                                { name: { en: 'Lebanon', es: 'Líbano' }, svgSrc: 'https://flagcdn.com/lb.svg' },
+                                { name: { en: 'Qatar', es: 'Catar' }, svgSrc: 'https://flagcdn.com/qa.svg' },
+                                { name: { en: 'Kuwait', es: 'Kuwait' }, svgSrc: 'https://flagcdn.com/kw.svg' },
+                                // Africa
+                                { name: { en: 'Egypt', es: 'Egipto' }, svgSrc: 'https://flagcdn.com/eg.svg' },
+                                { name: { en: 'South Africa', es: 'Sudáfrica' }, svgSrc: 'https://flagcdn.com/za.svg' },
+                                { name: { en: 'Nigeria', es: 'Nigeria' }, svgSrc: 'https://flagcdn.com/ng.svg' },
+                                { name: { en: 'Kenya', es: 'Kenia' }, svgSrc: 'https://flagcdn.com/ke.svg' },
+                                { name: { en: 'Ethiopia', es: 'Etiopía' }, svgSrc: 'https://flagcdn.com/et.svg' },
+                                { name: { en: 'Ghana', es: 'Ghana' }, svgSrc: 'https://flagcdn.com/gh.svg' },
+                                { name: { en: 'Morocco', es: 'Marruecos' }, svgSrc: 'https://flagcdn.com/ma.svg' },
+                                { name: { en: 'Algeria', es: 'Argelia' }, svgSrc: 'https://flagcdn.com/dz.svg' },
+                                { name: { en: 'Tunisia', es: 'Túnez' }, svgSrc: 'https://flagcdn.com/tn.svg' },
+                                { name: { en: 'Libya', es: 'Libia' }, svgSrc: 'https://flagcdn.com/ly.svg' },
+                                { name: { en: 'Senegal', es: 'Senegal' }, svgSrc: 'https://flagcdn.com/sn.svg' },
+                                { name: { en: 'Tanzania', es: 'Tanzania' }, svgSrc: 'https://flagcdn.com/tz.svg' },
+                                { name: { en: 'Uganda', es: 'Uganda' }, svgSrc: 'https://flagcdn.com/ug.svg' },
+                                { name: { en: 'Cameroon', es: 'Camerún' }, svgSrc: 'https://flagcdn.com/cm.svg' },
+                                // Asia
+                                { name: { en: 'China', es: 'China' }, svgSrc: 'https://flagcdn.com/cn.svg' },
+                                { name: { en: 'Japan', es: 'Japón' }, svgSrc: 'https://flagcdn.com/jp.svg' },
+                                { name: { en: 'India', es: 'India' }, svgSrc: 'https://flagcdn.com/in.svg' },
+                                { name: { en: 'South Korea', es: 'Corea del Sur' }, svgSrc: 'https://flagcdn.com/kr.svg' },
+                                { name: { en: 'Thailand', es: 'Tailandia' }, svgSrc: 'https://flagcdn.com/th.svg' },
+                                { name: { en: 'Vietnam', es: 'Vietnam' }, svgSrc: 'https://flagcdn.com/vn.svg' },
+                                { name: { en: 'Philippines', es: 'Filipinas' }, svgSrc: 'https://flagcdn.com/ph.svg' },
+                                { name: { en: 'Indonesia', es: 'Indonesia' }, svgSrc: 'https://flagcdn.com/id.svg' },
+                                { name: { en: 'Malaysia', es: 'Malasia' }, svgSrc: 'https://flagcdn.com/my.svg' },
+                                { name: { en: 'Singapore', es: 'Singapur' }, svgSrc: 'https://flagcdn.com/sg.svg' },
+                                { name: { en: 'Pakistan', es: 'Pakistán' }, svgSrc: 'https://flagcdn.com/pk.svg' },
+                                { name: { en: 'Bangladesh', es: 'Bangladés' }, svgSrc: 'https://flagcdn.com/bd.svg' },
+                                { name: { en: 'Sri Lanka', es: 'Sri Lanka' }, svgSrc: 'https://flagcdn.com/lk.svg' },
+                                { name: { en: 'Nepal', es: 'Nepal' }, svgSrc: 'https://flagcdn.com/np.svg' },
+                                // Oceania
+                                { name: { en: 'Australia', es: 'Australia' }, svgSrc: 'https://flagcdn.com/au.svg' },
+                                { name: { en: 'New Zealand', es: 'Nueva Zelanda' }, svgSrc: 'https://flagcdn.com/nz.svg' },
+                                { name: { en: 'Fiji', es: 'Fiyi' }, svgSrc: 'https://flagcdn.com/fj.svg' },
+                            ]
                         }
                     ]
                 };
@@ -805,14 +899,42 @@
                 },
                 selectCategory(category) {
                     this.selectedCategory = category;
-                    this.currentIndex = 0;
+                    // Start at a random image position
+                    this.currentIndex = Math.floor(Math.random() * category.images.length);
                     this.imageLoading = true;
+                    this.isViewerFullscreen = true;
+                    // Preload images after a short delay
+                    setTimeout(() => this.preloadImages(), 100);
+                    // Push state for browser back button support
+                    history.pushState({ category: category.id }, '', `#${category.id}`);
+                },
+                preloadImages() {
+                    if (!this.selectedCategory) return;
+                    // Preload all images in the category
+                    this.currentCategoryImages.forEach((image, index) => {
+                        if (index !== this.currentIndex) {
+                            const img = new Image();
+                            img.src = image.svgSrc;
+                        }
+                    });
                 },
                 goBack() {
                     this.selectedCategory = null;
                     this.currentIndex = 0;
                     this.imageLoading = true;
                     this.isViewerFullscreen = false;
+                    // Update URL to reflect main menu
+                    history.pushState({}, '', window.location.pathname);
+                },
+                handlePopState(event) {
+                    // Handle browser back button
+                    if (!event.state || !event.state.category) {
+                        // Go back to main menu
+                        this.selectedCategory = null;
+                        this.currentIndex = 0;
+                        this.imageLoading = true;
+                        this.isViewerFullscreen = false;
+                    }
                 },
                 nextImage() {
                     this.imageLoading = true;
@@ -873,37 +995,16 @@
                             event.preventDefault();
                             this.randomizeImages();
                             break;
-                        case 'f':
-                        case 'F':
-                            event.preventDefault();
-                            this.isViewerFullscreen = !this.isViewerFullscreen;
-                            break;
                     }
-                },
-                toggleFullscreen() {
-                    if (!document.fullscreenElement) {
-                        document.documentElement.requestFullscreen().then(() => {
-                            this.isFullscreen = true;
-                        }).catch(err => {
-                            console.log('Error attempting to enable fullscreen:', err);
-                        });
-                    } else {
-                        document.exitFullscreen().then(() => {
-                            this.isFullscreen = false;
-                        });
-                    }
-                },
-                handleFullscreenChange() {
-                    this.isFullscreen = !!document.fullscreenElement;
                 }
             },
             mounted() {
                 window.addEventListener('keydown', this.handleKeyboard);
-                document.addEventListener('fullscreenchange', this.handleFullscreenChange);
+                window.addEventListener('popstate', this.handlePopState);
             },
             beforeUnmount() {
                 window.removeEventListener('keydown', this.handleKeyboard);
-                document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
+                window.removeEventListener('popstate', this.handlePopState);
             }
         }).mount('#app');
     </script>
