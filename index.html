@@ -902,6 +902,8 @@
                     this.isViewerFullscreen = true;
                     // Preload images after a short delay
                     setTimeout(() => this.preloadImages(), 100);
+                    // Push state for browser back button support
+                    history.pushState({ category: category.id }, '', `#${category.id}`);
                 },
                 preloadImages() {
                     if (!this.selectedCategory) return;
@@ -918,6 +920,18 @@
                     this.currentIndex = 0;
                     this.imageLoading = true;
                     this.isViewerFullscreen = false;
+                    // Update URL to reflect main menu
+                    history.pushState({}, '', window.location.pathname);
+                },
+                handlePopState(event) {
+                    // Handle browser back button
+                    if (!event.state || !event.state.category) {
+                        // Go back to main menu
+                        this.selectedCategory = null;
+                        this.currentIndex = 0;
+                        this.imageLoading = true;
+                        this.isViewerFullscreen = false;
+                    }
                 },
                 nextImage() {
                     this.imageLoading = true;
@@ -983,9 +997,11 @@
             },
             mounted() {
                 window.addEventListener('keydown', this.handleKeyboard);
+                window.addEventListener('popstate', this.handlePopState);
             },
             beforeUnmount() {
                 window.removeEventListener('keydown', this.handleKeyboard);
+                window.removeEventListener('popstate', this.handlePopState);
             }
         }).mount('#app');
     </script>
