@@ -28,11 +28,6 @@
                         🗣️ {{ t.viewSpeech }}
                     </button>
                 </div>
-                <button @click="toggleFullscreen" class="fullscreen-btn" :title="t.fullscreenToggle">
-                    <span v-if="!isFullscreen">⛶</span>
-                    <span v-else>⛶</span>
-                    {{ isFullscreen ? t.exitFullscreen : t.enterFullscreen }}
-                </button>
             </div>
         </div>
 
@@ -72,18 +67,8 @@
         <!-- Image Viewer -->
         <transition name="slide-fade" mode="out-in">
             <div v-if="selectedCategory" key="viewer" :class="{ 'fullscreen-viewer': isViewerFullscreen }">
-                <!-- Fullscreen toggle button (only shown in normal mode) -->
+                <!-- Exit fullscreen button -->
                 <button
-                    v-if="!isViewerFullscreen"
-                    @click="isViewerFullscreen = true"
-                    class="fullscreen-toggle-btn"
-                    :title="t.viewerFullscreen">
-                    ⛶ {{ t.viewerFullscreen }}
-                </button>
-
-                <!-- Exit fullscreen button (only shown in fullscreen mode) -->
-                <button
-                    v-if="isViewerFullscreen"
                     @click="isViewerFullscreen = false"
                     class="fullscreen-exit-btn">
                     ✕ {{ t.exitViewerFullscreen }}
@@ -192,7 +177,6 @@
                     selectedCategory: null,
                     currentIndex: 0,
                     imageLoading: true,
-                    isFullscreen: false,
                     isViewerFullscreen: false,
                     translations: {
                         en: {
@@ -807,6 +791,7 @@
                     this.selectedCategory = category;
                     this.currentIndex = 0;
                     this.imageLoading = true;
+                    this.isViewerFullscreen = true;
                 },
                 goBack() {
                     this.selectedCategory = null;
@@ -873,37 +858,14 @@
                             event.preventDefault();
                             this.randomizeImages();
                             break;
-                        case 'f':
-                        case 'F':
-                            event.preventDefault();
-                            this.isViewerFullscreen = !this.isViewerFullscreen;
-                            break;
                     }
-                },
-                toggleFullscreen() {
-                    if (!document.fullscreenElement) {
-                        document.documentElement.requestFullscreen().then(() => {
-                            this.isFullscreen = true;
-                        }).catch(err => {
-                            console.log('Error attempting to enable fullscreen:', err);
-                        });
-                    } else {
-                        document.exitFullscreen().then(() => {
-                            this.isFullscreen = false;
-                        });
-                    }
-                },
-                handleFullscreenChange() {
-                    this.isFullscreen = !!document.fullscreenElement;
                 }
             },
             mounted() {
                 window.addEventListener('keydown', this.handleKeyboard);
-                document.addEventListener('fullscreenchange', this.handleFullscreenChange);
             },
             beforeUnmount() {
                 window.removeEventListener('keydown', this.handleKeyboard);
-                document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
             }
         }).mount('#app');
     </script>
