@@ -92,12 +92,6 @@
             font-size: 3rem;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
             margin-bottom: 10px;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .header p {
@@ -259,12 +253,12 @@
             }
 
             .lang-btn {
-                padding: 8px 15px;
-                font-size: 0.9rem;
+                padding: 8px 12px;
+                font-size: 0.85rem;
             }
 
             .view-toggle {
-                top: 55px;
+                top: 50px;
                 padding: 5px;
                 gap: 5px;
             }
@@ -275,20 +269,21 @@
             }
 
             .header {
-                margin-top: 110px;
-                margin-bottom: 20px;
+                margin-top: 100px;
+                margin-bottom: 15px;
             }
 
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
+                padding: 0 10px;
             }
 
             .header p {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
 
             .categories {
-                margin-top: 30px;
+                margin-top: 20px;
                 gap: 15px;
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
@@ -300,6 +295,7 @@
 
             .viewer-container {
                 padding: 20px;
+                margin-top: 10px;
             }
 
             .main-image {
@@ -327,8 +323,9 @@
             }
 
             .back-btn {
-                padding: 12px 25px;
-                font-size: 1.1rem;
+                padding: 10px 20px;
+                font-size: 1rem;
+                margin-bottom: 15px;
             }
         }
 
