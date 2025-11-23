@@ -984,7 +984,8 @@
                         ...this.selectedCategory,
                         images: images
                     };
-                    this.currentIndex = 0;
+                    // Pick a random starting position
+                    this.currentIndex = Math.floor(Math.random() * images.length);
                 }
             }
         }).mount('#app');
