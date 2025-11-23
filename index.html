@@ -40,7 +40,7 @@
 
         .view-toggle {
             position: absolute;
-            top: 70px;
+            top: 65px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -83,15 +83,17 @@
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            margin-top: 130px;
+            margin-bottom: 20px;
+            margin-top: 140px;
+            padding: 0 20px;
         }
 
         .header h1 {
             color: #fff;
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            line-height: 1.2;
         }
 
         .header p {
@@ -104,7 +106,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-top: 60px;
+            margin-top: 30px;
             margin-bottom: 30px;
         }
 
@@ -253,37 +255,38 @@
             }
 
             .lang-btn {
-                padding: 8px 12px;
-                font-size: 0.85rem;
+                padding: 6px 10px;
+                font-size: 0.75rem;
             }
 
             .view-toggle {
-                top: 50px;
+                top: 45px;
                 padding: 5px;
                 gap: 5px;
             }
 
             .view-btn {
-                padding: 8px 12px;
-                font-size: 0.85rem;
+                padding: 6px 10px;
+                font-size: 0.75rem;
             }
 
             .header {
-                margin-top: 100px;
-                margin-bottom: 15px;
-            }
-
-            .header h1 {
-                font-size: 1.6rem;
+                margin-top: 110px;
+                margin-bottom: 10px;
                 padding: 0 10px;
             }
 
+            .header h1 {
+                font-size: 1.4rem;
+                line-height: 1.3;
+            }
+
             .header p {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
             }
 
             .categories {
-                margin-top: 20px;
+                margin-top: 15px;
                 gap: 15px;
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
@@ -330,18 +333,36 @@
         }
 
         @media (max-width: 480px) {
+            .lang-btn {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+
+            .view-toggle {
+                top: 40px;
+            }
+
+            .view-btn {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+
+            .header {
+                margin-top: 100px;
+            }
+
             .header h1 {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
             }
 
             .header p {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .categories {
                 grid-template-columns: 1fr;
                 gap: 12px;
-                margin-top: 20px;
+                margin-top: 10px;
             }
 
             .category-btn {
@@ -899,19 +920,6 @@
                                 { name: { en: 'Tree', es: 'Árbol' }, svgSrc: 'images/nature/tree.svg', photoSrc: 'images/photos/nature/tree.jpg', credit: 'Placeholder' },
                                 { name: { en: 'Flower', es: 'Flor' }, svgSrc: 'images/nature/flower.svg', photoSrc: 'images/photos/nature/flower.jpg', credit: 'Placeholder' },
                                 { name: { en: 'Cloud', es: 'Nube' }, svgSrc: 'images/nature/cloud.svg', photoSrc: 'images/photos/nature/cloud.jpg', credit: 'Placeholder' },
-                            ]
-                        },
-                        {
-                            id: 'cartoons',
-                            name: { en: 'Cartoons', es: 'Dibujos Animados' },
-                            emoji: '📺',
-                            images: [
-                                { name: { en: 'Bluey', es: 'Bluey' }, svgSrc: 'images/cartoons/bluey.svg', photoSrc: 'images/photos/cartoons/bluey.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Bingo', es: 'Bingo' }, svgSrc: 'images/cartoons/bingo.svg', photoSrc: 'images/photos/cartoons/bingo.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Peppa Pig', es: 'Peppa Pig' }, svgSrc: 'images/cartoons/peppa.svg', photoSrc: 'images/photos/cartoons/peppa.jpg', credit: 'Placeholder' },
-                                { name: { en: 'George', es: 'George' }, svgSrc: 'images/cartoons/george.svg', photoSrc: 'images/photos/cartoons/george.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Mario', es: 'Mario' }, svgSrc: 'images/cartoons/mario.svg', photoSrc: 'images/photos/cartoons/mario.jpg', credit: 'Placeholder' },
-                                { name: { en: 'Hello Kitty', es: 'Hello Kitty' }, svgSrc: 'images/cartoons/hellokitty.svg', photoSrc: 'images/photos/cartoons/hellokitty.jpg', credit: 'Placeholder' },
                             ]
                         }
                     ]
